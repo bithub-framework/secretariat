@@ -7,6 +7,9 @@ import { once } from 'events';
 import fetch from 'node-fetch';
 import { Database } from 'promisified-sqlite';
 import bodyParser from 'koa-bodyparser';
+import { EventEmitter } from 'events';
+import { PromisifiedWebSocket as Websocket } from 'promisified-websocket';
+import { KoaWsFilter, UpgradeState } from 'koa-ws-filter';
 import {
     REDIRECTOR_PORT,
     DATABASE_PATH,
@@ -18,21 +21,26 @@ import {
 
 class Secretariat extends Startable {
     private koa = new Koa();
-    private router = new Router();
+    private httpRouter = new Router();
+    private wsRouter = new Router<UpgradeState, {}>();
+    private wsFilter = new KoaWsFilter();
     private server?: Server;
     private db = new Database(DATABASE_PATH);
+    private broadcast = new EventEmitter();
 
     constructor() {
         super();
         this.koa.use(bodyParser());
 
-        this.router.post('/assets', async (ctx, next) => {
-            const id: string = ctx.query.id;
+        this.httpRouter.post('/assets', async (ctx, next) => {
+            const id = <string>ctx.query.id;
+            const assets = <StringifiedAssets>ctx.body;
             const {
                 balance, time, position, cost,
                 margin, frozenMargin, reserve,
                 frozenPosition, closable,
-            } = <StringifiedAssets>ctx.body;
+            } = assets;
+            this.broadcast.emit(`assets/${id}`, assets);
             this.db.sql(`INSERT INTO assets (
                 id, balance, time,
                 position_long, position_short,
@@ -51,8 +59,8 @@ class Secretariat extends Startable {
             await next();
         });
 
-        this.router.delete('/assets', async (ctx, next) => {
-            const id: string = ctx.query.id;
+        this.httpRouter.delete('/assets', async (ctx, next) => {
+            const id = <string>ctx.query.id;
             this.db.sql(`
                 DELETE FROM assets
                 WHERE id = ${id}
@@ -60,8 +68,8 @@ class Secretariat extends Startable {
             await next();
         });
 
-        this.router.get('/assets', async (ctx, next) => {
-            const id: string = ctx.query.id;
+        this.httpRouter.get('/assets', async (ctx, next) => {
+            const id = <string>ctx.query.id;
             const before: string | undefined = ctx.query.before;
             type Equity = {
                 balance: number;
@@ -82,6 +90,26 @@ class Secretariat extends Startable {
             ctx.body = equities;
             await next();
         });
+
+        this.wsRouter.get('/assets', async (ctx, next) => {
+            const id = <string>ctx.query.id;
+            // 即使 websocket 出错，出错事件也还在宏队列中，此时状态必为 STARTED
+            const client = new Websocket(await ctx.state.upgrade());
+            const onAssets = async (assets: StringifiedAssets) => {
+                try {
+                    await client.send(JSON.stringify(assets));
+                } catch (err) {
+                    this.stop(err).catch(() => { });
+                }
+            }
+            this.broadcast.on(`assets/${id}`, onAssets);
+            await client.start(() => void this.broadcast.off(`assets/${id}`, onAssets));
+            await next();
+        });
+
+        this.wsFilter.http(this.httpRouter.routes());
+        this.wsFilter.ws(this.wsRouter.routes());
+        this.koa.use(this.wsFilter.protocols());
     }
 
     public async _start() {

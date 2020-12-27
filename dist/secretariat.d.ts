@@ -1,9 +1,12 @@
 import Startable from 'startable';
 declare class Secretariat extends Startable {
     private koa;
-    private router;
+    private httpRouter;
+    private wsRouter;
+    private wsFilter;
     private server?;
     private db;
+    private broadcast;
     constructor();
     _start(): Promise<void>;
     _stop(): Promise<void>;

@@ -562,8 +562,8 @@
         "affectsGlobalScope": false
       },
       "./node_modules/startable/dist/startable.d.ts": {
-        "version": "05ec4662747c3bb879f42a2ac04275f46ca6dc0732f2872b612840bded928440",
-        "signature": "05ec4662747c3bb879f42a2ac04275f46ca6dc0732f2872b612840bded928440",
+        "version": "0dbcb67fa6001421f0f026cb075c2447b273e5968d38807e4d6638accffd9971",
+        "signature": "0dbcb67fa6001421f0f026cb075c2447b273e5968d38807e4d6638accffd9971",
         "affectsGlobalScope": false
       },
       "./node_modules/startable/dist/adaptor.d.ts": {
@@ -606,9 +606,34 @@
         "signature": "b8d67a816b437cd16692069fa2d9c2255216673fdf9d1bdd6a9d2f23a803796f",
         "affectsGlobalScope": false
       },
+      "./node_modules/@types/ws/index.d.ts": {
+        "version": "c6e185824cae1ddea6706f4256d4bd499e8e9a37ed10689946c22984d68798c3",
+        "signature": "c6e185824cae1ddea6706f4256d4bd499e8e9a37ed10689946c22984d68798c3",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/promisified-websocket/dist/websocket.d.ts": {
+        "version": "fb83fb519d01ef5d2dd863f35b494e918ab7da079f36da76663c9bfc44f6a338",
+        "signature": "fb83fb519d01ef5d2dd863f35b494e918ab7da079f36da76663c9bfc44f6a338",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/promisified-websocket/dist/index.d.ts": {
+        "version": "a929faac4f32ea01b6b5c42f4d0e16615902e643a177fd9ada5c937373b111d4",
+        "signature": "a929faac4f32ea01b6b5c42f4d0e16615902e643a177fd9ada5c937373b111d4",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/koa-ws-filter/node_modules/@types/ws/index.d.ts": {
+        "version": "829c6dfd3224be3b599c64ce7fa9136a3422ac7ab4569cc52469c65574facb23",
+        "signature": "829c6dfd3224be3b599c64ce7fa9136a3422ac7ab4569cc52469c65574facb23",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/koa-ws-filter/dist/index.d.ts": {
+        "version": "e720e4048ae05a158f392c5a4d1cb7cce00d99d21d9be6352f80cedaf45abbeb",
+        "signature": "e720e4048ae05a158f392c5a4d1cb7cce00d99d21d9be6352f80cedaf45abbeb",
+        "affectsGlobalScope": false
+      },
       "./src/secretariat.ts": {
-        "version": "4dc6f56581df46241d01eb12e18a2133a4aa42098e73ae401952df1db057d140",
-        "signature": "4fd64b21827de344149da766d7c968930dc7118a450284ae39482eafb065ea02",
+        "version": "0fa17d2702a0e6eb13a35508354a40d9f9be245f9e304f87bd7f1dafed067d96",
+        "signature": "895a178f059cc0b547de789659e76d292f5d1884af309617133e88153eab3538",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/bluebird/index.d.ts": {
@@ -895,6 +920,17 @@
         "./node_modules/@types/node/events.d.ts",
         "./node_modules/@types/node/index.d.ts"
       ],
+      "./node_modules/@types/ws/index.d.ts": [
+        "./node_modules/@types/node/events.d.ts",
+        "./node_modules/@types/node/http.d.ts",
+        "./node_modules/@types/node/https.d.ts",
+        "./node_modules/@types/node/index.d.ts",
+        "./node_modules/@types/node/net.d.ts",
+        "./node_modules/@types/node/stream.d.ts",
+        "./node_modules/@types/node/tls.d.ts",
+        "./node_modules/@types/node/url.d.ts",
+        "./node_modules/@types/node/zlib.d.ts"
+      ],
       "./node_modules/form-data/index.d.ts": [
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/index.d.ts",
@@ -913,7 +949,27 @@
         "./node_modules/interfaces/dist/context.d.ts",
         "./node_modules/interfaces/dist/data.d.ts"
       ],
+      "./node_modules/koa-ws-filter/dist/index.d.ts": [
+        "./node_modules/@types/koa/index.d.ts",
+        "./node_modules/koa-ws-filter/node_modules/@types/ws/index.d.ts"
+      ],
+      "./node_modules/koa-ws-filter/node_modules/@types/ws/index.d.ts": [
+        "./node_modules/@types/node/events.d.ts",
+        "./node_modules/@types/node/http.d.ts",
+        "./node_modules/@types/node/https.d.ts",
+        "./node_modules/@types/node/index.d.ts",
+        "./node_modules/@types/node/net.d.ts",
+        "./node_modules/@types/node/url.d.ts",
+        "./node_modules/@types/node/zlib.d.ts"
+      ],
       "./node_modules/promisified-sqlite/dist/promisified-sqlite.d.ts": [
+        "./node_modules/startable/dist/index.d.ts"
+      ],
+      "./node_modules/promisified-websocket/dist/index.d.ts": [
+        "./node_modules/promisified-websocket/dist/websocket.d.ts"
+      ],
+      "./node_modules/promisified-websocket/dist/websocket.d.ts": [
+        "./node_modules/@types/ws/index.d.ts",
         "./node_modules/startable/dist/index.d.ts"
       ],
       "./node_modules/startable/dist/adaptor.d.ts": [
@@ -942,7 +998,9 @@
         "./node_modules/@types/node/events.d.ts",
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/net.d.ts",
+        "./node_modules/koa-ws-filter/dist/index.d.ts",
         "./node_modules/promisified-sqlite/dist/promisified-sqlite.d.ts",
+        "./node_modules/promisified-websocket/dist/index.d.ts",
         "./node_modules/startable/dist/index.d.ts",
         "./src/config.ts",
         "./src/interfaces.ts"
@@ -1204,6 +1262,17 @@
         "./node_modules/@types/node/events.d.ts",
         "./node_modules/@types/node/index.d.ts"
       ],
+      "./node_modules/@types/ws/index.d.ts": [
+        "./node_modules/@types/node/events.d.ts",
+        "./node_modules/@types/node/http.d.ts",
+        "./node_modules/@types/node/https.d.ts",
+        "./node_modules/@types/node/index.d.ts",
+        "./node_modules/@types/node/net.d.ts",
+        "./node_modules/@types/node/stream.d.ts",
+        "./node_modules/@types/node/tls.d.ts",
+        "./node_modules/@types/node/url.d.ts",
+        "./node_modules/@types/node/zlib.d.ts"
+      ],
       "./node_modules/form-data/index.d.ts": [
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/index.d.ts",
@@ -1222,7 +1291,27 @@
         "./node_modules/interfaces/dist/context.d.ts",
         "./node_modules/interfaces/dist/data.d.ts"
       ],
+      "./node_modules/koa-ws-filter/dist/index.d.ts": [
+        "./node_modules/@types/koa/index.d.ts",
+        "./node_modules/koa-ws-filter/node_modules/@types/ws/index.d.ts"
+      ],
+      "./node_modules/koa-ws-filter/node_modules/@types/ws/index.d.ts": [
+        "./node_modules/@types/node/events.d.ts",
+        "./node_modules/@types/node/http.d.ts",
+        "./node_modules/@types/node/https.d.ts",
+        "./node_modules/@types/node/index.d.ts",
+        "./node_modules/@types/node/net.d.ts",
+        "./node_modules/@types/node/url.d.ts",
+        "./node_modules/@types/node/zlib.d.ts"
+      ],
       "./node_modules/promisified-sqlite/dist/promisified-sqlite.d.ts": [
+        "./node_modules/startable/dist/index.d.ts"
+      ],
+      "./node_modules/promisified-websocket/dist/index.d.ts": [
+        "./node_modules/promisified-websocket/dist/websocket.d.ts"
+      ],
+      "./node_modules/promisified-websocket/dist/websocket.d.ts": [
+        "./node_modules/@types/ws/index.d.ts",
         "./node_modules/startable/dist/index.d.ts"
       ],
       "./node_modules/startable/dist/adaptor.d.ts": [
@@ -1316,12 +1405,17 @@
       "./node_modules/@types/range-parser/index.d.ts",
       "./node_modules/@types/serve-static/index.d.ts",
       "./node_modules/@types/sqlite3/index.d.ts",
+      "./node_modules/@types/ws/index.d.ts",
       "./node_modules/form-data/index.d.ts",
       "./node_modules/interfaces/dist/clone.d.ts",
       "./node_modules/interfaces/dist/context.d.ts",
       "./node_modules/interfaces/dist/data.d.ts",
       "./node_modules/interfaces/dist/index.d.ts",
+      "./node_modules/koa-ws-filter/dist/index.d.ts",
+      "./node_modules/koa-ws-filter/node_modules/@types/ws/index.d.ts",
       "./node_modules/promisified-sqlite/dist/promisified-sqlite.d.ts",
+      "./node_modules/promisified-websocket/dist/index.d.ts",
+      "./node_modules/promisified-websocket/dist/websocket.d.ts",
       "./node_modules/startable/dist/adaptor.d.ts",
       "./node_modules/startable/dist/index.d.ts",
       "./node_modules/startable/dist/startable.d.ts",

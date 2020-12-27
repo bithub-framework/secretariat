@@ -18,8 +18,10 @@
         "@types/node-fetch": "^2.5.7",
         "interfaces": "https://gitee.com/zimtsui/interfaces.git",
         "koa": "^2.13.0",
+        "koa-ws-filter": "https://gitee.com/zimtsui/koa-ws-filter.git",
         "node-fetch": "^2.6.1",
         "promisified-sqlite": "https://gitee.com/zimtsui/promisified-sqlite.git",
+        "promisified-websocket": "https://gitee.com/zimtsui/promisified-websocket.git",
         "startable": "https://gitee.com/zimtsui/startable.git"
     }
 }
