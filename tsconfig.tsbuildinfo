@@ -632,8 +632,8 @@
         "affectsGlobalScope": false
       },
       "./src/secretariat.ts": {
-        "version": "0fa17d2702a0e6eb13a35508354a40d9f9be245f9e304f87bd7f1dafed067d96",
-        "signature": "895a178f059cc0b547de789659e76d292f5d1884af309617133e88153eab3538",
+        "version": "201986f9ead862aa03c78d021887a8bad2e90fdae460df711aa06cab38cb37c5",
+        "signature": "993e954e541a8c729f98c1fd0913c1d86cc65a37b19bd2d4f094a626a6d91385",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/bluebird/index.d.ts": {

@@ -112,12 +112,12 @@ class Secretariat extends Startable {
         this.koa.use(this.wsFilter.protocols());
     }
 
-    public async _start() {
+    protected async _start() {
         await this.startDatabase();
         await this.startServer();
     }
 
-    public async _stop() {
+    protected async _stop() {
         await this.stopServer();
         await this.stopDatabase();
     }

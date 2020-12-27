@@ -8,8 +8,8 @@ declare class Secretariat extends Startable {
     private db;
     private broadcast;
     constructor();
-    _start(): Promise<void>;
-    _stop(): Promise<void>;
+    protected _start(): Promise<void>;
+    protected _stop(): Promise<void>;
     private startDatabase;
     private stopDatabase;
     private startServer;
