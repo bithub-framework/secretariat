@@ -12,6 +12,14 @@
     "author": "Zim",
     "license": "SEE LICENSE IN ./LICENSE",
     "dependencies": {
-        "@types/node": "^14.14.16"
+        "@koa/router": "^10.0.0",
+        "@types/koa__router": "^8.0.3",
+        "@types/node": "^14.14.16",
+        "@types/node-fetch": "^2.5.7",
+        "interfaces": "https://gitee.com/zimtsui/interfaces.git",
+        "koa": "^2.13.0",
+        "node-fetch": "^2.6.1",
+        "promisified-sqlite": "https://gitee.com/zimtsui/promisified-sqlite.git",
+        "startable": "https://gitee.com/zimtsui/startable.git"
     }
 }
