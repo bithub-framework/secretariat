@@ -4,7 +4,7 @@ declare class Secretariat extends Startable {
     private httpRouter;
     private wsRouter;
     private wsFilter;
-    private server?;
+    private server;
     private db;
     private broadcast;
     constructor();

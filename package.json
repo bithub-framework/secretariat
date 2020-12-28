@@ -6,7 +6,7 @@
     "types": "./dist/index.d.ts",
     "type": "module",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "tsc -b ./test && ava",
         "build": "tsc -b"
     },
     "author": "Zim",
@@ -22,6 +22,10 @@
         "node-fetch": "^2.6.1",
         "promisified-sqlite": "https://gitee.com/zimtsui/promisified-sqlite.git",
         "promisified-websocket": "https://gitee.com/zimtsui/promisified-websocket.git",
+        "server-destroy": "git+https://github.com/zimtsui/server-destroy.git",
         "startable": "https://gitee.com/zimtsui/startable.git"
+    },
+    "devDependencies": {
+        "ava": "^3.14.0"
     }
 }

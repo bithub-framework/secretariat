@@ -1,20 +1,20 @@
 export * from 'interfaces';
 export interface StringifiedAssets {
     position: {
-        [length: number]: number;
+        [length: number]: string;
     };
-    balance: number;
+    balance: string;
     cost: {
-        [length: number]: number;
+        [length: number]: string;
     };
-    frozenMargin: number;
+    frozenMargin: string;
     frozenPosition: {
-        [length: number]: number;
+        [length: number]: string;
     };
-    margin: number;
-    reserve: number;
+    margin: string;
+    reserve: string;
     closable: {
-        [length: number]: number;
+        [length: number]: string;
     };
     time: number;
 }

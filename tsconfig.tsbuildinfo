@@ -472,8 +472,8 @@
         "affectsGlobalScope": false
       },
       "./src/interfaces.ts": {
-        "version": "0f089230c062738bf505bbe85027d5604fe4f27600a483943716eb7c0d33f9f6",
-        "signature": "c8269b8cf9dce821760666a37496a34c1eaadf58463d1872e3fab91acaf9218f",
+        "version": "9ec8beb449a8dadeba7e0b01a7ac7f486817a91e624baf2138551697f52be28e",
+        "signature": "683a54de86e87f8c5f462e50be5eac01762b073de754fc8cd2b9e842497f3250",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/accepts/index.d.ts": {
@@ -631,14 +631,24 @@
         "signature": "e720e4048ae05a158f392c5a4d1cb7cce00d99d21d9be6352f80cedaf45abbeb",
         "affectsGlobalScope": false
       },
+      "./node_modules/server-destroy/dist/index.d.ts": {
+        "version": "ca745c380b79f32bd2d655989ca4aef9be9e8c928daed88bc9810197fceadacc",
+        "signature": "ca745c380b79f32bd2d655989ca4aef9be9e8c928daed88bc9810197fceadacc",
+        "affectsGlobalScope": false
+      },
       "./src/secretariat.ts": {
-        "version": "201986f9ead862aa03c78d021887a8bad2e90fdae460df711aa06cab38cb37c5",
-        "signature": "993e954e541a8c729f98c1fd0913c1d86cc65a37b19bd2d4f094a626a6d91385",
+        "version": "d312087bd7804f2bf2268dd439c91563107d335b5d3435a6781ae58c3d2f4930",
+        "signature": "65b5052982b1001a25a7cb738ee8ed5c560e2c099aa4a0cecafa067f6144219e",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/bluebird/index.d.ts": {
         "version": "6247a016129906c76ba4012d2d77773c919ea33a96830b0a8d522a9790fc7efe",
         "signature": "6247a016129906c76ba4012d2d77773c919ea33a96830b0a8d522a9790fc7efe",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/@types/normalize-package-data/index.d.ts": {
+        "version": "c9ad058b2cc9ce6dc2ed92960d6d009e8c04bef46d3f5312283debca6869f613",
+        "signature": "c9ad058b2cc9ce6dc2ed92960d6d009e8c04bef46d3f5312283debca6869f613",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/sqlite3/index.d.ts": {
@@ -972,6 +982,9 @@
         "./node_modules/@types/ws/index.d.ts",
         "./node_modules/startable/dist/index.d.ts"
       ],
+      "./node_modules/server-destroy/dist/index.d.ts": [
+        "./node_modules/@types/node/net.d.ts"
+      ],
       "./node_modules/startable/dist/adaptor.d.ts": [
         "./node_modules/startable/dist/startable.d.ts"
       ],
@@ -1001,6 +1014,7 @@
         "./node_modules/koa-ws-filter/dist/index.d.ts",
         "./node_modules/promisified-sqlite/dist/promisified-sqlite.d.ts",
         "./node_modules/promisified-websocket/dist/index.d.ts",
+        "./node_modules/server-destroy/dist/index.d.ts",
         "./node_modules/startable/dist/index.d.ts",
         "./src/config.ts",
         "./src/interfaces.ts"
@@ -1314,6 +1328,9 @@
         "./node_modules/@types/ws/index.d.ts",
         "./node_modules/startable/dist/index.d.ts"
       ],
+      "./node_modules/server-destroy/dist/index.d.ts": [
+        "./node_modules/@types/node/net.d.ts"
+      ],
       "./node_modules/startable/dist/adaptor.d.ts": [
         "./node_modules/startable/dist/startable.d.ts"
       ],
@@ -1401,6 +1418,7 @@
       "./node_modules/@types/node/wasi.d.ts",
       "./node_modules/@types/node/worker_threads.d.ts",
       "./node_modules/@types/node/zlib.d.ts",
+      "./node_modules/@types/normalize-package-data/index.d.ts",
       "./node_modules/@types/qs/index.d.ts",
       "./node_modules/@types/range-parser/index.d.ts",
       "./node_modules/@types/serve-static/index.d.ts",
@@ -1416,6 +1434,7 @@
       "./node_modules/promisified-sqlite/dist/promisified-sqlite.d.ts",
       "./node_modules/promisified-websocket/dist/index.d.ts",
       "./node_modules/promisified-websocket/dist/websocket.d.ts",
+      "./node_modules/server-destroy/dist/index.d.ts",
       "./node_modules/startable/dist/adaptor.d.ts",
       "./node_modules/startable/dist/index.d.ts",
       "./node_modules/startable/dist/startable.d.ts",

@@ -10,6 +10,7 @@ import bodyParser from 'koa-bodyparser';
 import { EventEmitter } from 'events';
 import { PromisifiedWebSocket as Websocket } from 'promisified-websocket';
 import { KoaWsFilter, UpgradeState } from 'koa-ws-filter';
+import { enableDestroy } from 'server-destroy';
 import {
     REDIRECTOR_PORT,
     DATABASE_PATH,
@@ -24,7 +25,7 @@ class Secretariat extends Startable {
     private httpRouter = new Router();
     private wsRouter = new Router<UpgradeState, {}>();
     private wsFilter = new KoaWsFilter();
-    private server?: Server;
+    private server = new Server();
     private db = new Database(DATABASE_PATH);
     private broadcast = new EventEmitter();
 
@@ -34,14 +35,14 @@ class Secretariat extends Startable {
 
         this.httpRouter.post('/assets', async (ctx, next) => {
             const id = <string>ctx.query.id;
-            const assets = <StringifiedAssets>ctx.body;
+            const assets = <StringifiedAssets>ctx.request.body;
             const {
                 balance, time, position, cost,
                 margin, frozenMargin, reserve,
                 frozenPosition, closable,
             } = assets;
             this.broadcast.emit(`assets/${id}`, assets);
-            this.db.sql(`INSERT INTO assets (
+            await this.db.sql(`INSERT INTO assets (
                 id, balance, time,
                 position_long, position_short,
                 cost_long, cost_short,
@@ -49,22 +50,24 @@ class Secretariat extends Startable {
                 frozen_position_long, frozen_position_short,
                 closable_long, closable_short
             ) VALUES (
-                ${id}, ${balance}, ${time},
+                '${id}', ${balance}, ${time},
                 ${position[LONG]}, ${position[SHORT]},
                 ${cost[LONG]}, ${cost[SHORT]},
                 ${margin}, ${frozenMargin}, ${reserve},
                 ${frozenPosition[LONG]}, ${frozenPosition[SHORT]},
-                ${closable[LONG]}, ${closable[SHORT]},
+                ${closable[LONG]}, ${closable[SHORT]}
             );`);
+            ctx.status = 200;
             await next();
         });
 
         this.httpRouter.delete('/assets', async (ctx, next) => {
             const id = <string>ctx.query.id;
-            this.db.sql(`
+            await this.db.sql(`
                 DELETE FROM assets
-                WHERE id = ${id}
+                WHERE id = '${id}'
             ;`);
+            ctx.status = 200;
             await next();
         });
 
@@ -78,11 +81,11 @@ class Secretariat extends Startable {
             const equities = (before
                 ? await this.db.sql<Equity>(`
                     SELECT balance, time FROM assets
-                    WHERE id = ${id} AND time < ${before}
+                    WHERE id = '${id}' AND time < ${before}
                 ;`)
                 : await this.db.sql<Equity>(`
                     SELECT balance, time FROM assets
-                    WHERE id = ${id}
+                    WHERE id = '${id}'
                 ;`))
                 .map(equity => [
                     equity.balance, equity.time,
@@ -91,7 +94,7 @@ class Secretariat extends Startable {
             await next();
         });
 
-        this.wsRouter.get('/assets', async (ctx, next) => {
+        this.wsRouter.all('/assets', async (ctx, next) => {
             const id = <string>ctx.query.id;
             // 即使 websocket 出错，出错事件也还在宏队列中，此时状态必为 STARTED
             const client = new Websocket(await ctx.state.upgrade());
@@ -110,6 +113,8 @@ class Secretariat extends Startable {
         this.wsFilter.http(this.httpRouter.routes());
         this.wsFilter.ws(this.wsRouter.routes());
         this.koa.use(this.wsFilter.protocols());
+        this.server.on('request', this.koa.callback());
+        enableDestroy(this.server);
     }
 
     protected async _start() {
@@ -129,7 +134,7 @@ class Secretariat extends Startable {
         await this.db.sql(`CREATE TABLE IF NOT EXISTS assets (
             id                      VARCHAR(32)         NOT NULL,
             balance                 ${CURRENCY_TYPE}    NOT NULL,
-            time                    BIGINT              NOT NULL
+            time                    BIGINT              NOT NULL,
             position_long           ${QUANTITY_TYPE}    NOT NULL,
             position_short          ${QUANTITY_TYPE}    NOT NULL,
             cost_long               ${CURRENCY_TYPE}    NOT NULL,
@@ -140,7 +145,7 @@ class Secretariat extends Startable {
             frozen_position_long    ${QUANTITY_TYPE}    NOT NULL,
             frozen_position_short   ${QUANTITY_TYPE}    NOT NULL,
             closable_long           ${QUANTITY_TYPE}    NOT NULL,
-            closable_short          ${QUANTITY_TYPE}    NOT NULL,
+            closable_short          ${QUANTITY_TYPE}    NOT NULL
         );`);
     }
 
@@ -149,7 +154,7 @@ class Secretariat extends Startable {
     }
 
     private async startServer() {
-        this.server = this.koa.listen();
+        this.server.listen();
         await once(this.server, 'listening');
         const port = (<AddressInfo>this.server.address()).port;
         await fetch(
@@ -160,8 +165,11 @@ class Secretariat extends Startable {
     }
 
     private async stopServer() {
-        this.server!.close();
-        await once(this.server!, 'close');
+        this.server!.destroy();
+        await Promise.all([
+            once(this.server!, 'close'),
+            this.wsFilter.close(),
+        ]);
     }
 }
 
