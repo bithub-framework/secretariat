@@ -18,9 +18,6 @@ import {
 } from './config';
 import {
     StringifiedAssets,
-    LONG, SHORT,
-    DatabaseAssets,
-    DbAssets2NAssets,
 } from './interfaces';
 
 class Secretariat extends Startable {
@@ -39,26 +36,11 @@ class Secretariat extends Startable {
         this.httpRouter.post('/assets', async (ctx, next) => {
             const id = <string>ctx.query.id;
             const assets = <StringifiedAssets>ctx.request.body;
-            const {
-                balance, time, position, cost,
-                margin, frozenMargin, reserve,
-                frozenPosition, closable,
-            } = assets;
             this.broadcast.emit(`assets/${id}`, assets);
             await this.db.sql(`INSERT INTO assets (
-                id, balance, time,
-                position_long, position_short,
-                cost_long, cost_short,
-                margin, frozen_margin, reserve,
-                frozen_position_long, frozen_position_short,
-                closable_long, closable_short
+                id, json
             ) VALUES (
-                '${id}', ${balance}, ${time},
-                ${position[LONG]}, ${position[SHORT]},
-                ${cost[LONG]}, ${cost[SHORT]},
-                ${margin}, ${frozenMargin}, ${reserve},
-                ${frozenPosition[LONG]}, ${frozenPosition[SHORT]},
-                ${closable[LONG]}, ${closable[SHORT]}
+                '${id}', '${JSON.stringify(assets)}'
             );`);
             ctx.status = 200;
             await next();
@@ -78,21 +60,29 @@ class Secretariat extends Startable {
             const id = <string>ctx.query.id;
             const before: string | undefined = ctx.query.before;
             type Equity = {
-                balance: number;
+                balance: string;
                 time: number;
             };
             const equities = (before
                 ? await this.db.sql<Equity>(`
-                    SELECT balance, time FROM assets
+                    SELECT 
+                        json_extract(json, '$.balance') AS balance, 
+                        json_extract(json, '$.time') AS time
+                    FROM assets
                     WHERE id = '${id}' AND time < ${before}
+                    ORDER BY time
                 ;`)
                 : await this.db.sql<Equity>(`
-                    SELECT balance, time FROM assets
+                    SELECT 
+                        json_extract(json, '$.balance') AS balance, 
+                        json_extract(json, '$.time') AS time
+                    FROM assets
                     WHERE id = '${id}'
+                    ORDER BY time
                 ;`))
                 .map(equity => [
                     equity.balance, equity.time,
-                ]);
+                ] as const);
             ctx.body = equities;
             await next();
         });
@@ -100,15 +90,17 @@ class Secretariat extends Startable {
         this.httpRouter.get('/assets/latest', async (ctx, next) => {
             const id = <string>ctx.query.id;
             const maxTime = (await this.db.sql<{ max_time: number | null }>(`
-                SELECT MAX(time) AS max_time FROM assets
+                SELECT 
+                    MAX(json_extract(json, '$.time')) AS max_time
+                FROM assets
                 WHERE id = '${id}'
             ;`))[0]['max_time'];
             if (maxTime !== null) {
-                const dbAssets = (await this.db.sql<DatabaseAssets>(`
-                    SELECT * FROM assets
-                    WHERE id = '${id}' AND time = ${maxTime}
-                ;`))[0];
-                ctx.body = DbAssets2NAssets(dbAssets);
+                const stringifiedAssets = (await this.db.sql<{ json: string }>(`
+                    SELECT json FROM assets
+                    WHERE id = '${id}' AND json_extract(json, '$.time') = ${maxTime}
+                ;`))[0].json;
+                ctx.body = JSON.parse(stringifiedAssets);
             } else {
                 ctx.status = 404;
             }
@@ -150,23 +142,9 @@ class Secretariat extends Startable {
 
     private async startDatabase() {
         await this.db.start().catch(err => void this.stop(err));
-        const CURRENCY_TYPE = 'DECIMAL(12, 2)';
-        const QUANTITY_TYPE = 'DECIMAL(16, 6)';
         await this.db.sql(`CREATE TABLE IF NOT EXISTS assets (
-            id                      VARCHAR(32)         NOT NULL,
-            balance                 ${CURRENCY_TYPE}    NOT NULL,
-            time                    BIGINT              NOT NULL,
-            position_long           ${QUANTITY_TYPE}    NOT NULL,
-            position_short          ${QUANTITY_TYPE}    NOT NULL,
-            cost_long               ${CURRENCY_TYPE}    NOT NULL,
-            cost_short              ${CURRENCY_TYPE}    NOT NULL,
-            margin                  ${CURRENCY_TYPE}    NOT NULL,
-            frozen_margin           ${CURRENCY_TYPE}    NOT NULL,
-            reserve                 ${CURRENCY_TYPE}    NOT NULL,
-            frozen_position_long    ${QUANTITY_TYPE}    NOT NULL,
-            frozen_position_short   ${QUANTITY_TYPE}    NOT NULL,
-            closable_long           ${QUANTITY_TYPE}    NOT NULL,
-            closable_short          ${QUANTITY_TYPE}    NOT NULL
+            id      VARCHAR(32)     NOT NULL,
+            json    JSON            NOT NULL
         );`);
     }
 
