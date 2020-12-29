@@ -1,20 +1,19 @@
 export * from 'interfaces';
-export interface StringifiedAssets {
-    position: {
-        [length: number]: string;
-    };
-    balance: string;
-    cost: {
-        [length: number]: string;
-    };
-    frozenMargin: string;
-    frozenPosition: {
-        [length: number]: string;
-    };
-    margin: string;
-    reserve: string;
-    closable: {
-        [length: number]: string;
-    };
+import { NumberizedAssets } from 'interfaces';
+export interface DatabaseAssets {
+    id: string;
+    balance: number;
     time: number;
+    position_long: number;
+    position_short: number;
+    cost_long: number;
+    cost_short: number;
+    margin: number;
+    frozen_margin: number;
+    reserve: number;
+    frozen_position_long: number;
+    frozen_position_short: number;
+    closable_long: number;
+    closable_short: number;
 }
+export declare function DbAssets2NAssets(dbAssets: DatabaseAssets): NumberizedAssets;

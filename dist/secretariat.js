@@ -11,7 +11,7 @@ import { PromisifiedWebSocket as Websocket } from 'promisified-websocket';
 import { KoaWsFilter } from 'koa-ws-filter';
 import { enableDestroy } from 'server-destroy';
 import { REDIRECTOR_PORT, DATABASE_PATH, } from './config';
-import { LONG, SHORT, } from './interfaces';
+import { LONG, SHORT, DbAssets2NAssets, } from './interfaces';
 class Secretariat extends Startable {
     constructor() {
         super();
@@ -71,6 +71,26 @@ class Secretariat extends Startable {
                 equity.balance, equity.time,
             ]);
             ctx.body = equities;
+            await next();
+        });
+        this.httpRouter.get('/assets/latest', async (ctx, next) => {
+            const id = ctx.query.id;
+            const maxTime = await this.db.sql(`
+                SELECT MAX(time) AS max_time FROM assets
+                WHERE id = '${id}'
+            ;`);
+            // TODO
+            console.log(maxTime);
+            if (typeof maxTime === 'number') {
+                const dbAssets = (await this.db.sql(`
+                    SELECT * FROM assets
+                    WHERE id = '${id}' AND time = ${maxTime}
+                ;`))[0];
+                ctx.body = DbAssets2NAssets(dbAssets);
+            }
+            else {
+                ctx.status = 404;
+            }
             await next();
         });
         this.wsRouter.all('/assets', async (ctx, next) => {

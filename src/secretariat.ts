@@ -18,6 +18,8 @@ import {
 import {
     StringifiedAssets,
     LONG, SHORT,
+    DatabaseAssets,
+    DbAssets2NAssets,
 } from './interfaces';
 
 class Secretariat extends Startable {
@@ -91,6 +93,26 @@ class Secretariat extends Startable {
                     equity.balance, equity.time,
                 ]);
             ctx.body = equities;
+            await next();
+        });
+
+        this.httpRouter.get('/assets/latest', async (ctx, next) => {
+            const id = <string>ctx.query.id;
+            const maxTime = await this.db.sql<number | undefined | null>(`
+                SELECT MAX(time) AS max_time FROM assets
+                WHERE id = '${id}'
+            ;`);
+            // TODO
+            console.log(maxTime);
+            if (typeof maxTime === 'number') {
+                const dbAssets = (await this.db.sql<DatabaseAssets>(`
+                    SELECT * FROM assets
+                    WHERE id = '${id}' AND time = ${maxTime}
+                ;`))[0];
+                ctx.body = DbAssets2NAssets(dbAssets);
+            } else {
+                ctx.status = 404;
+            }
             await next();
         });
 
