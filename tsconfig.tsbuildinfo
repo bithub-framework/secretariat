@@ -647,7 +647,7 @@
         "affectsGlobalScope": false
       },
       "./src/secretariat.ts": {
-        "version": "f82c9b11f648826cc517c150890b99544a8f32cdee8d3c2f811f3f7f11a67d38",
+        "version": "8c9276d2dcf3229a4ab5e0bd45a2c9a1aaf5b2ce99a5d8abaab355372701db5a",
         "signature": "65b5052982b1001a25a7cb738ee8ed5c560e2c099aa4a0cecafa067f6144219e",
         "affectsGlobalScope": false
       },

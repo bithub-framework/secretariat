@@ -99,10 +99,10 @@ class Secretariat extends Startable {
 
         this.httpRouter.get('/assets/latest', async (ctx, next) => {
             const id = <string>ctx.query.id;
-            const maxTime = await this.db.sql<number | undefined | null>(`
+            const maxTime = (await this.db.sql<number | null>(`
                 SELECT MAX(time) AS max_time FROM assets
                 WHERE id = '${id}'
-            ;`);
+            ;`))[0];
             if (maxTime !== null) {
                 const dbAssets = (await this.db.sql<DatabaseAssets>(`
                     SELECT * FROM assets
