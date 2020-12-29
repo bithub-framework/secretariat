@@ -10,7 +10,7 @@ import { EventEmitter } from 'events';
 import { PromisifiedWebSocket as Websocket } from 'promisified-websocket';
 import { KoaWsFilter } from 'koa-ws-filter';
 import { enableDestroy } from 'server-destroy';
-import { REDIRECTOR_PORT, DATABASE_PATH, } from './config';
+import { REDIRECTOR_URL, LOCAL_HOSTNAME, DATABASE_PATH, } from './config';
 import { LONG, SHORT, DbAssets2NAssets, } from './interfaces';
 class Secretariat extends Startable {
     constructor() {
@@ -151,9 +151,9 @@ class Secretariat extends Startable {
         this.server.listen();
         await once(this.server, 'listening');
         const port = this.server.address().port;
-        await fetch(`http://localhost:${REDIRECTOR_PORT}/secretariat`, {
+        await fetch(`${REDIRECTOR_URL}/secretariat`, {
             method: 'PUT',
-            body: `http://localhost:${port}`,
+            body: `http://${LOCAL_HOSTNAME}:${port}`,
         });
     }
     async stopServer() {

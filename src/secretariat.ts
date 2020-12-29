@@ -12,7 +12,8 @@ import { PromisifiedWebSocket as Websocket } from 'promisified-websocket';
 import { KoaWsFilter, UpgradeState } from 'koa-ws-filter';
 import { enableDestroy } from 'server-destroy';
 import {
-    REDIRECTOR_PORT,
+    REDIRECTOR_URL,
+    LOCAL_HOSTNAME,
     DATABASE_PATH,
 } from './config';
 import {
@@ -180,9 +181,9 @@ class Secretariat extends Startable {
         await once(this.server, 'listening');
         const port = (<AddressInfo>this.server.address()).port;
         await fetch(
-            `http://localhost:${REDIRECTOR_PORT}/secretariat`, {
+            `${REDIRECTOR_URL}/secretariat`, {
             method: 'PUT',
-            body: `http://localhost:${port}`,
+            body: `http://${LOCAL_HOSTNAME}:${port}`,
         });
     }
 

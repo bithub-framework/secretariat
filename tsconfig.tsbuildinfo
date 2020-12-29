@@ -202,8 +202,8 @@
         "affectsGlobalScope": true
       },
       "./src/config.ts": {
-        "version": "584a696668dedfdbfe4815cfd5deff75b294e0d016ee704aa855af64fab5451c",
-        "signature": "f9f05ea79202a7282dfc5cd31bc69533c08d3b5f73ffc4eacda19ae996dbe9a9",
+        "version": "21d858ce68d11b1bceb729ab666bf9f26f29d2028ab00f20ae21f4549e3516a5",
+        "signature": "98b33083ea967b06c087c46754656cb61909173eb2cc918c4880fca6c89d0299",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/big.js/index.d.ts": {
@@ -647,7 +647,7 @@
         "affectsGlobalScope": false
       },
       "./src/secretariat.ts": {
-        "version": "e9e684a15e56f43c96607f4c2a5e5a4bc6da8c37bd9a1df5ee8797a6e7020c6d",
+        "version": "49e9f9372191f5c646871e94dfad1b4050bacc7480ba6daf627417db5f1632c3",
         "signature": "65b5052982b1001a25a7cb738ee8ed5c560e2c099aa4a0cecafa067f6144219e",
         "affectsGlobalScope": false
       },
