@@ -55,7 +55,7 @@ class Secretariat extends Startable {
             ctx.status = 200;
             await next();
         });
-        this.httpRouter.get('/assets', async (ctx, next) => {
+        this.httpRouter.get('/balances', async (ctx, next) => {
             const id = ctx.query.id;
             const before = ctx.query.before;
             const equities = (before

@@ -647,7 +647,7 @@
         "affectsGlobalScope": false
       },
       "./src/secretariat.ts": {
-        "version": "b2595ec8bac4a55a096bf66f13c29f1df67bcf1e81a7fbbc875d06e231bc6481",
+        "version": "602a0397f5801a2f9a38cf9a834fe6639f2ef27e80a5edf6aebf3fd8c1e02d5b",
         "signature": "65b5052982b1001a25a7cb738ee8ed5c560e2c099aa4a0cecafa067f6144219e",
         "affectsGlobalScope": false
       },
@@ -659,6 +659,11 @@
       "./node_modules/@types/bluebird/index.d.ts": {
         "version": "6247a016129906c76ba4012d2d77773c919ea33a96830b0a8d522a9790fc7efe",
         "signature": "6247a016129906c76ba4012d2d77773c919ea33a96830b0a8d522a9790fc7efe",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/@types/fs-extra/index.d.ts": {
+        "version": "8126afccdf4a55b90e010207e6fa74ea47dc0932b4d1347726b92502fe11a2e1",
+        "signature": "8126afccdf4a55b90e010207e6fa74ea47dc0932b4d1347726b92502fe11a2e1",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/normalize-package-data/index.d.ts": {
@@ -740,6 +745,10 @@
         "./node_modules/@types/express-serve-static-core/index.d.ts",
         "./node_modules/@types/qs/index.d.ts",
         "./node_modules/@types/serve-static/index.d.ts"
+      ],
+      "./node_modules/@types/fs-extra/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/index.d.ts"
       ],
       "./node_modules/@types/koa-compose/index.d.ts": [
         "./node_modules/@types/koa/index.d.ts"
@@ -1100,6 +1109,10 @@
         "./node_modules/@types/qs/index.d.ts",
         "./node_modules/@types/serve-static/index.d.ts"
       ],
+      "./node_modules/@types/fs-extra/index.d.ts": [
+        "./node_modules/@types/node/fs.d.ts",
+        "./node_modules/@types/node/index.d.ts"
+      ],
       "./node_modules/@types/koa-compose/index.d.ts": [
         "./node_modules/@types/koa/index.d.ts"
       ],
@@ -1399,6 +1412,7 @@
       "./node_modules/@types/events/index.d.ts",
       "./node_modules/@types/express-serve-static-core/index.d.ts",
       "./node_modules/@types/express/index.d.ts",
+      "./node_modules/@types/fs-extra/index.d.ts",
       "./node_modules/@types/http-assert/index.d.ts",
       "./node_modules/@types/http-errors/index.d.ts",
       "./node_modules/@types/keygrip/index.d.ts",

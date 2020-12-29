@@ -30,7 +30,7 @@ All `Big` field is of `number`, so precision may be lost.
 ## Get all balances
 
 - protocol: `http`
-- path: `/assets?id=<project-id>`
+- path: `/balances?id=<project-id>`
 - method: `GET`
 
 ### Response
