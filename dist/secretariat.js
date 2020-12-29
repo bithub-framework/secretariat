@@ -78,7 +78,7 @@ class Secretariat extends Startable {
             const maxTime = (await this.db.sql(`
                 SELECT MAX(time) AS max_time FROM assets
                 WHERE id = '${id}'
-            ;`))[0];
+            ;`))[0]['max_time'];
             if (maxTime !== null) {
                 const dbAssets = (await this.db.sql(`
                     SELECT * FROM assets
