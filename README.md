@@ -51,4 +51,4 @@ All `Big` field is of `string`, so no precision is lost.
 
 ## Database
 
-Make sure to operate on database only via secretary, because promisified-sqlite implements a cache.
+Make sure to operate on database only via secretary, because promisified-sqlite makes transactions as cache.
