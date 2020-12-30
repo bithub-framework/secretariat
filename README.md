@@ -48,3 +48,7 @@ All `Big` field is of `number`, so precision may be lost.
 - body: JSON of each assets
 
 All `Big` field is of `string`, so no precision is lost.
+
+## Database
+
+Make sure to operate on database only via secretary, because promisified-sqlite implements a cache.
