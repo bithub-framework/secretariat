@@ -212,13 +212,38 @@
         "affectsGlobalScope": true
       },
       "./node_modules/interfaces/dist/data.d.ts": {
-        "version": "e9771f6e530bb919bd782b7a87195ed5bb28f63cffd588dd846c9713ac3afe19",
-        "signature": "e9771f6e530bb919bd782b7a87195ed5bb28f63cffd588dd846c9713ac3afe19",
+        "version": "02cd50413883cd7a9e24aa0c69bdf819aefec15083d8da35cff4ebee11c3105e",
+        "signature": "02cd50413883cd7a9e24aa0c69bdf819aefec15083d8da35cff4ebee11c3105e",
         "affectsGlobalScope": false
       },
       "./node_modules/interfaces/dist/serialization.d.ts": {
-        "version": "a828d2d685410366b83e3b636fadb971c2def2eb6ec590608c408f05e572b7b2",
-        "signature": "a828d2d685410366b83e3b636fadb971c2def2eb6ec590608c408f05e572b7b2",
+        "version": "9010779de5f4beba2f4fadfa9e5f8b346e6be70a741d4d432d2a206cfe9c0fa0",
+        "signature": "9010779de5f4beba2f4fadfa9e5f8b346e6be70a741d4d432d2a206cfe9c0fa0",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/@types/events/index.d.ts": {
+        "version": "400db42c3a46984118bff14260d60cec580057dc1ab4c2d7310beb643e4f5935",
+        "signature": "400db42c3a46984118bff14260d60cec580057dc1ab4c2d7310beb643e4f5935",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/interfaces/dist/config.d.ts": {
+        "version": "9a89372db99d87797e8346ab03b22f524c329ec50fe7e987e8f8be32cfd7c69f",
+        "signature": "9a89372db99d87797e8346ab03b22f524c329ec50fe7e987e8f8be32cfd7c69f",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/interfaces/dist/context.d.ts": {
+        "version": "cd6166e75d80b2b8a056cafd944c0b975c8d2ed0f59fa861342226ac4b90e487",
+        "signature": "cd6166e75d80b2b8a056cafd944c0b975c8d2ed0f59fa861342226ac4b90e487",
+        "affectsGlobalScope": false
+      },
+      "./node_modules/interfaces/dist/index.d.ts": {
+        "version": "4062b915bfff3de063bfd9f32d450872d644cc071f40f615b87bdf54a8687542",
+        "signature": "4062b915bfff3de063bfd9f32d450872d644cc071f40f615b87bdf54a8687542",
+        "affectsGlobalScope": false
+      },
+      "./src/interfaces.ts": {
+        "version": "c8395a58d60bd7b75380022844b13afca2f1ee722ca39bd23acb9816a3ba5eb9",
+        "signature": "c8395a58d60bd7b75380022844b13afca2f1ee722ca39bd23acb9816a3ba5eb9",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/node/globals.d.ts": {
@@ -234,11 +259,6 @@
       "./node_modules/@types/node/buffer.d.ts": {
         "version": "bc6a78961535181265845bf9b9e8a147ffd0ca275097ceb670a9b92afa825152",
         "signature": "bc6a78961535181265845bf9b9e8a147ffd0ca275097ceb670a9b92afa825152",
-        "affectsGlobalScope": false
-      },
-      "./node_modules/@types/events/index.d.ts": {
-        "version": "400db42c3a46984118bff14260d60cec580057dc1ab4c2d7310beb643e4f5935",
-        "signature": "400db42c3a46984118bff14260d60cec580057dc1ab4c2d7310beb643e4f5935",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/node/child_process.d.ts": {
@@ -461,31 +481,6 @@
         "signature": "5825520e2099309182c6e2a2b3061b060d42a098c58f67d1754880a7e2cce99a",
         "affectsGlobalScope": false
       },
-      "./node_modules/interfaces/dist/context.d.ts": {
-        "version": "2804a1a3251bcbf1484beb259c3bcbcc688c3afd2fce8bb4e417a4cd306fe671",
-        "signature": "2804a1a3251bcbf1484beb259c3bcbcc688c3afd2fce8bb4e417a4cd306fe671",
-        "affectsGlobalScope": false
-      },
-      "./node_modules/interfaces/dist/clone.d.ts": {
-        "version": "2b6e6541512a6e071c3e3f927844b30cd149bf519901c629a602aea71a74d7ce",
-        "signature": "2b6e6541512a6e071c3e3f927844b30cd149bf519901c629a602aea71a74d7ce",
-        "affectsGlobalScope": false
-      },
-      "./node_modules/interfaces/dist/auto-assets.d.ts": {
-        "version": "44b2bc89571468ea205fd7aa6343f2be28f62b82449cfa4ec94ec927ff8f2614",
-        "signature": "44b2bc89571468ea205fd7aa6343f2be28f62b82449cfa4ec94ec927ff8f2614",
-        "affectsGlobalScope": false
-      },
-      "./node_modules/interfaces/dist/index.d.ts": {
-        "version": "45972ababd12f0af6b1329444bcecc0cedb7c7831c6b8a1788ebc2ff1babcaa3",
-        "signature": "45972ababd12f0af6b1329444bcecc0cedb7c7831c6b8a1788ebc2ff1babcaa3",
-        "affectsGlobalScope": false
-      },
-      "./src/interfaces.ts": {
-        "version": "c8395a58d60bd7b75380022844b13afca2f1ee722ca39bd23acb9816a3ba5eb9",
-        "signature": "c8395a58d60bd7b75380022844b13afca2f1ee722ca39bd23acb9816a3ba5eb9",
-        "affectsGlobalScope": false
-      },
       "./node_modules/startable/dist/startable.d.ts": {
         "version": "0dbcb67fa6001421f0f026cb075c2447b273e5968d38807e4d6638accffd9971",
         "signature": "0dbcb67fa6001421f0f026cb075c2447b273e5968d38807e4d6638accffd9971",
@@ -606,12 +601,7 @@
         "signature": "84a81986ba1c22341949decf588d8a44f7065e03fff92994c5eb49891ac5a289",
         "affectsGlobalScope": false
       },
-      "../../../node_modules/@types/koa/index.d.ts": {
-        "version": "1ebc948ee6ded6760bff4e0f73d17b2c9c6412f8996162d25083f96493b938b1",
-        "signature": "1ebc948ee6ded6760bff4e0f73d17b2c9c6412f8996162d25083f96493b938b1",
-        "affectsGlobalScope": false
-      },
-      "../../../node_modules/@types/koa-bodyparser/index.d.ts": {
+      "./node_modules/@types/koa-bodyparser/index.d.ts": {
         "version": "b8d67a816b437cd16692069fa2d9c2255216673fdf9d1bdd6a9d2f23a803796f",
         "signature": "b8d67a816b437cd16692069fa2d9c2255216673fdf9d1bdd6a9d2f23a803796f",
         "affectsGlobalScope": false
@@ -695,24 +685,6 @@
       "configFilePath": "./tsconfig.json"
     },
     "referencedMap": {
-      "../../../node_modules/@types/koa-bodyparser/index.d.ts": [
-        "./node_modules/@types/koa/index.d.ts"
-      ],
-      "../../../node_modules/@types/koa/index.d.ts": [
-        "./node_modules/@types/accepts/index.d.ts",
-        "./node_modules/@types/content-disposition/index.d.ts",
-        "./node_modules/@types/cookies/index.d.ts",
-        "./node_modules/@types/http-assert/index.d.ts",
-        "./node_modules/@types/http-errors/index.d.ts",
-        "./node_modules/@types/keygrip/index.d.ts",
-        "./node_modules/@types/koa-compose/index.d.ts",
-        "./node_modules/@types/node/events.d.ts",
-        "./node_modules/@types/node/http.d.ts",
-        "./node_modules/@types/node/http2.d.ts",
-        "./node_modules/@types/node/index.d.ts",
-        "./node_modules/@types/node/net.d.ts",
-        "./node_modules/@types/node/url.d.ts"
-      ],
       "./node_modules/@types/accepts/index.d.ts": [
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/index.d.ts"
@@ -749,6 +721,9 @@
       "./node_modules/@types/fs-extra/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/index.d.ts"
+      ],
+      "./node_modules/@types/koa-bodyparser/index.d.ts": [
+        "./node_modules/@types/koa/index.d.ts"
       ],
       "./node_modules/@types/koa-compose/index.d.ts": [
         "./node_modules/@types/koa/index.d.ts"
@@ -970,26 +945,25 @@
         "./node_modules/@types/node/index.d.ts",
         "./node_modules/@types/node/stream.d.ts"
       ],
-      "./node_modules/interfaces/dist/auto-assets.d.ts": [
-        "./node_modules/@types/big.js/index.d.ts",
-        "./node_modules/interfaces/dist/data.d.ts"
+      "./node_modules/interfaces/dist/config.d.ts": [
+        "./node_modules/@types/big.js/index.d.ts"
       ],
       "./node_modules/interfaces/dist/context.d.ts": [
         "./node_modules/@types/node/events.d.ts",
-        "./node_modules/@types/node/index.d.ts",
+        "./node_modules/interfaces/dist/config.d.ts",
         "./node_modules/interfaces/dist/data.d.ts"
       ],
       "./node_modules/interfaces/dist/data.d.ts": [
         "./node_modules/@types/big.js/index.d.ts"
       ],
       "./node_modules/interfaces/dist/index.d.ts": [
-        "./node_modules/interfaces/dist/auto-assets.d.ts",
-        "./node_modules/interfaces/dist/clone.d.ts",
+        "./node_modules/interfaces/dist/config.d.ts",
         "./node_modules/interfaces/dist/context.d.ts",
         "./node_modules/interfaces/dist/data.d.ts",
         "./node_modules/interfaces/dist/serialization.d.ts"
       ],
       "./node_modules/interfaces/dist/serialization.d.ts": [
+        "./node_modules/@types/big.js/index.d.ts",
         "./node_modules/interfaces/dist/data.d.ts"
       ],
       "./node_modules/koa-ws-filter/dist/index.d.ts": [
@@ -1042,7 +1016,7 @@
         "./src/secretariat.ts"
       ],
       "./src/secretariat.ts": [
-        "../../../node_modules/@types/koa-bodyparser/index.d.ts",
+        "./node_modules/@types/koa-bodyparser/index.d.ts",
         "./node_modules/@types/koa/index.d.ts",
         "./node_modules/@types/koa__router/index.d.ts",
         "./node_modules/@types/node-fetch/index.d.ts",
@@ -1059,24 +1033,6 @@
       ]
     },
     "exportedModulesMap": {
-      "../../../node_modules/@types/koa-bodyparser/index.d.ts": [
-        "./node_modules/@types/koa/index.d.ts"
-      ],
-      "../../../node_modules/@types/koa/index.d.ts": [
-        "./node_modules/@types/accepts/index.d.ts",
-        "./node_modules/@types/content-disposition/index.d.ts",
-        "./node_modules/@types/cookies/index.d.ts",
-        "./node_modules/@types/http-assert/index.d.ts",
-        "./node_modules/@types/http-errors/index.d.ts",
-        "./node_modules/@types/keygrip/index.d.ts",
-        "./node_modules/@types/koa-compose/index.d.ts",
-        "./node_modules/@types/node/events.d.ts",
-        "./node_modules/@types/node/http.d.ts",
-        "./node_modules/@types/node/http2.d.ts",
-        "./node_modules/@types/node/index.d.ts",
-        "./node_modules/@types/node/net.d.ts",
-        "./node_modules/@types/node/url.d.ts"
-      ],
       "./node_modules/@types/accepts/index.d.ts": [
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/index.d.ts"
@@ -1113,6 +1069,9 @@
       "./node_modules/@types/fs-extra/index.d.ts": [
         "./node_modules/@types/node/fs.d.ts",
         "./node_modules/@types/node/index.d.ts"
+      ],
+      "./node_modules/@types/koa-bodyparser/index.d.ts": [
+        "./node_modules/@types/koa/index.d.ts"
       ],
       "./node_modules/@types/koa-compose/index.d.ts": [
         "./node_modules/@types/koa/index.d.ts"
@@ -1334,26 +1293,25 @@
         "./node_modules/@types/node/index.d.ts",
         "./node_modules/@types/node/stream.d.ts"
       ],
-      "./node_modules/interfaces/dist/auto-assets.d.ts": [
-        "./node_modules/@types/big.js/index.d.ts",
-        "./node_modules/interfaces/dist/data.d.ts"
+      "./node_modules/interfaces/dist/config.d.ts": [
+        "./node_modules/@types/big.js/index.d.ts"
       ],
       "./node_modules/interfaces/dist/context.d.ts": [
         "./node_modules/@types/node/events.d.ts",
-        "./node_modules/@types/node/index.d.ts",
+        "./node_modules/interfaces/dist/config.d.ts",
         "./node_modules/interfaces/dist/data.d.ts"
       ],
       "./node_modules/interfaces/dist/data.d.ts": [
         "./node_modules/@types/big.js/index.d.ts"
       ],
       "./node_modules/interfaces/dist/index.d.ts": [
-        "./node_modules/interfaces/dist/auto-assets.d.ts",
-        "./node_modules/interfaces/dist/clone.d.ts",
+        "./node_modules/interfaces/dist/config.d.ts",
         "./node_modules/interfaces/dist/context.d.ts",
         "./node_modules/interfaces/dist/data.d.ts",
         "./node_modules/interfaces/dist/serialization.d.ts"
       ],
       "./node_modules/interfaces/dist/serialization.d.ts": [
+        "./node_modules/@types/big.js/index.d.ts",
         "./node_modules/interfaces/dist/data.d.ts"
       ],
       "./node_modules/koa-ws-filter/dist/index.d.ts": [
@@ -1402,8 +1360,6 @@
       ]
     },
     "semanticDiagnosticsPerFile": [
-      "../../../node_modules/@types/koa-bodyparser/index.d.ts",
-      "../../../node_modules/@types/koa/index.d.ts",
       "./node_modules/@types/accepts/index.d.ts",
       "./node_modules/@types/big.js/index.d.ts",
       "./node_modules/@types/bluebird/index.d.ts",
@@ -1418,6 +1374,7 @@
       "./node_modules/@types/http-assert/index.d.ts",
       "./node_modules/@types/http-errors/index.d.ts",
       "./node_modules/@types/keygrip/index.d.ts",
+      "./node_modules/@types/koa-bodyparser/index.d.ts",
       "./node_modules/@types/koa-compose/index.d.ts",
       "./node_modules/@types/koa/index.d.ts",
       "./node_modules/@types/koa__router/index.d.ts",
@@ -1478,8 +1435,7 @@
       "./node_modules/@types/sqlite3/index.d.ts",
       "./node_modules/@types/ws/index.d.ts",
       "./node_modules/form-data/index.d.ts",
-      "./node_modules/interfaces/dist/auto-assets.d.ts",
-      "./node_modules/interfaces/dist/clone.d.ts",
+      "./node_modules/interfaces/dist/config.d.ts",
       "./node_modules/interfaces/dist/context.d.ts",
       "./node_modules/interfaces/dist/data.d.ts",
       "./node_modules/interfaces/dist/index.d.ts",
