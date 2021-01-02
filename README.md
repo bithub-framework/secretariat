@@ -25,7 +25,7 @@
 - Content-Type: `application/json`
 - body: JSON of assets
 
-All `Big` field is of `number`, so precision may be lost.
+All `Big` field is of `string`, no precision is lost.
 
 ## Get all balances
 
@@ -38,6 +38,8 @@ All `Big` field is of `number`, so precision may be lost.
 - Content-Type: `application/json`
 - body: JSON of `[<balance>, <time>][]` in ascending order by `time`
 
+`balance` is of `string`, no presicion is lost.
+
 ## Get realtime assets
 
 - protocol: `ws`
@@ -47,8 +49,8 @@ All `Big` field is of `number`, so precision may be lost.
 
 - body: JSON of each assets
 
-All `Big` field is of `string`, so no precision is lost.
+All `Big` field is of `string`, no precision is lost.
 
 ## Database
 
-Make sure to operate on database only via secretary, because promisified-sqlite makes transactions as cache.
+Make sure to operate on database only via secretary, because promisified-sqlite makes transactions.

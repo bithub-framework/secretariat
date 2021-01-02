@@ -96,11 +96,11 @@ class Secretariat extends Startable {
                 WHERE id = '${id}'
             ;`))[0]['max_time'];
             if (maxTime !== null) {
-                const stringifiedAssets = (await this.db.sql<{ json: string }>(`
+                const assetsJson = (await this.db.sql<{ json: string }>(`
                     SELECT json FROM assets
                     WHERE id = '${id}' AND json_extract(json, '$.time') = ${maxTime}
                 ;`))[0].json;
-                ctx.body = JSON.parse(stringifiedAssets);
+                ctx.body = <StringifiedAssets>JSON.parse(assetsJson);
             } else {
                 ctx.status = 404;
             }

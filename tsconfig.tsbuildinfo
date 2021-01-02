@@ -221,11 +221,6 @@
         "signature": "9010779de5f4beba2f4fadfa9e5f8b346e6be70a741d4d432d2a206cfe9c0fa0",
         "affectsGlobalScope": false
       },
-      "./node_modules/@types/events/index.d.ts": {
-        "version": "400db42c3a46984118bff14260d60cec580057dc1ab4c2d7310beb643e4f5935",
-        "signature": "400db42c3a46984118bff14260d60cec580057dc1ab4c2d7310beb643e4f5935",
-        "affectsGlobalScope": false
-      },
       "./node_modules/interfaces/dist/config.d.ts": {
         "version": "9a89372db99d87797e8346ab03b22f524c329ec50fe7e987e8f8be32cfd7c69f",
         "signature": "9a89372db99d87797e8346ab03b22f524c329ec50fe7e987e8f8be32cfd7c69f",
@@ -322,8 +317,8 @@
         "affectsGlobalScope": false
       },
       "./node_modules/@types/node/http2.d.ts": {
-        "version": "1c3fe66943f587685aa4a42f664f794655da1767401d2f85910177dac78aa45d",
-        "signature": "1c3fe66943f587685aa4a42f664f794655da1767401d2f85910177dac78aa45d",
+        "version": "f15f1f1104aaf47d25124de81949375416e3f8ee704e3d221bea339e35421edb",
+        "signature": "f15f1f1104aaf47d25124de81949375416e3f8ee704e3d221bea339e35421edb",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/node/https.d.ts": {
@@ -597,8 +592,8 @@
         "affectsGlobalScope": false
       },
       "./node_modules/promisified-sqlite/dist/promisified-sqlite.d.ts": {
-        "version": "84a81986ba1c22341949decf588d8a44f7065e03fff92994c5eb49891ac5a289",
-        "signature": "84a81986ba1c22341949decf588d8a44f7065e03fff92994c5eb49891ac5a289",
+        "version": "940b98fe74584148c80d906fd58e7fdce19041d2a0fc0213102154edca318990",
+        "signature": "940b98fe74584148c80d906fd58e7fdce19041d2a0fc0213102154edca318990",
         "affectsGlobalScope": false
       },
       "./node_modules/@types/koa-bodyparser/index.d.ts": {
@@ -606,7 +601,7 @@
         "signature": "b8d67a816b437cd16692069fa2d9c2255216673fdf9d1bdd6a9d2f23a803796f",
         "affectsGlobalScope": false
       },
-      "./node_modules/@types/ws/index.d.ts": {
+      "./node_modules/promisified-websocket/node_modules/@types/ws/index.d.ts": {
         "version": "c6e185824cae1ddea6706f4256d4bd499e8e9a37ed10689946c22984d68798c3",
         "signature": "c6e185824cae1ddea6706f4256d4bd499e8e9a37ed10689946c22984d68798c3",
         "affectsGlobalScope": false
@@ -621,7 +616,7 @@
         "signature": "a929faac4f32ea01b6b5c42f4d0e16615902e643a177fd9ada5c937373b111d4",
         "affectsGlobalScope": false
       },
-      "./node_modules/koa-ws-filter/node_modules/@types/ws/index.d.ts": {
+      "./node_modules/@types/ws/index.d.ts": {
         "version": "829c6dfd3224be3b599c64ce7fa9136a3422ac7ab4569cc52469c65574facb23",
         "signature": "829c6dfd3224be3b599c64ce7fa9136a3422ac7ab4569cc52469c65574facb23",
         "affectsGlobalScope": false
@@ -637,7 +632,7 @@
         "affectsGlobalScope": false
       },
       "./src/secretariat.ts": {
-        "version": "fd3d9c4dd63d9f7b5f9a652f1e271cce000372c0c689123005f0e866726bfb28",
+        "version": "13a16cef6452e977c8d71389aeeb631e9af3d72f385af967a4809f3a691e5654",
         "signature": "65b5052982b1001a25a7cb738ee8ed5c560e2c099aa4a0cecafa067f6144219e",
         "affectsGlobalScope": false
       },
@@ -935,8 +930,6 @@
         "./node_modules/@types/node/https.d.ts",
         "./node_modules/@types/node/index.d.ts",
         "./node_modules/@types/node/net.d.ts",
-        "./node_modules/@types/node/stream.d.ts",
-        "./node_modules/@types/node/tls.d.ts",
         "./node_modules/@types/node/url.d.ts",
         "./node_modules/@types/node/zlib.d.ts"
       ],
@@ -968,16 +961,7 @@
       ],
       "./node_modules/koa-ws-filter/dist/index.d.ts": [
         "./node_modules/@types/koa/index.d.ts",
-        "./node_modules/koa-ws-filter/node_modules/@types/ws/index.d.ts"
-      ],
-      "./node_modules/koa-ws-filter/node_modules/@types/ws/index.d.ts": [
-        "./node_modules/@types/node/events.d.ts",
-        "./node_modules/@types/node/http.d.ts",
-        "./node_modules/@types/node/https.d.ts",
-        "./node_modules/@types/node/index.d.ts",
-        "./node_modules/@types/node/net.d.ts",
-        "./node_modules/@types/node/url.d.ts",
-        "./node_modules/@types/node/zlib.d.ts"
+        "./node_modules/@types/ws/index.d.ts"
       ],
       "./node_modules/promisified-sqlite/dist/promisified-sqlite.d.ts": [
         "./node_modules/@types/sqlite3/index.d.ts",
@@ -987,8 +971,19 @@
         "./node_modules/promisified-websocket/dist/websocket.d.ts"
       ],
       "./node_modules/promisified-websocket/dist/websocket.d.ts": [
-        "./node_modules/@types/ws/index.d.ts",
+        "./node_modules/promisified-websocket/node_modules/@types/ws/index.d.ts",
         "./node_modules/startable/dist/index.d.ts"
+      ],
+      "./node_modules/promisified-websocket/node_modules/@types/ws/index.d.ts": [
+        "./node_modules/@types/node/events.d.ts",
+        "./node_modules/@types/node/http.d.ts",
+        "./node_modules/@types/node/https.d.ts",
+        "./node_modules/@types/node/index.d.ts",
+        "./node_modules/@types/node/net.d.ts",
+        "./node_modules/@types/node/stream.d.ts",
+        "./node_modules/@types/node/tls.d.ts",
+        "./node_modules/@types/node/url.d.ts",
+        "./node_modules/@types/node/zlib.d.ts"
       ],
       "./node_modules/server-destroy/dist/index.d.ts": [
         "./node_modules/@types/node/net.d.ts"
@@ -1283,8 +1278,6 @@
         "./node_modules/@types/node/https.d.ts",
         "./node_modules/@types/node/index.d.ts",
         "./node_modules/@types/node/net.d.ts",
-        "./node_modules/@types/node/stream.d.ts",
-        "./node_modules/@types/node/tls.d.ts",
         "./node_modules/@types/node/url.d.ts",
         "./node_modules/@types/node/zlib.d.ts"
       ],
@@ -1318,15 +1311,6 @@
         "./node_modules/@types/koa/index.d.ts",
         "./node_modules/koa-ws-filter/node_modules/@types/ws/index.d.ts"
       ],
-      "./node_modules/koa-ws-filter/node_modules/@types/ws/index.d.ts": [
-        "./node_modules/@types/node/events.d.ts",
-        "./node_modules/@types/node/http.d.ts",
-        "./node_modules/@types/node/https.d.ts",
-        "./node_modules/@types/node/index.d.ts",
-        "./node_modules/@types/node/net.d.ts",
-        "./node_modules/@types/node/url.d.ts",
-        "./node_modules/@types/node/zlib.d.ts"
-      ],
       "./node_modules/promisified-sqlite/dist/promisified-sqlite.d.ts": [
         "./node_modules/@types/sqlite3/index.d.ts",
         "./node_modules/startable/dist/index.d.ts"
@@ -1337,6 +1321,17 @@
       "./node_modules/promisified-websocket/dist/websocket.d.ts": [
         "./node_modules/@types/ws/index.d.ts",
         "./node_modules/startable/dist/index.d.ts"
+      ],
+      "./node_modules/promisified-websocket/node_modules/@types/ws/index.d.ts": [
+        "./node_modules/@types/node/events.d.ts",
+        "./node_modules/@types/node/http.d.ts",
+        "./node_modules/@types/node/https.d.ts",
+        "./node_modules/@types/node/index.d.ts",
+        "./node_modules/@types/node/net.d.ts",
+        "./node_modules/@types/node/stream.d.ts",
+        "./node_modules/@types/node/tls.d.ts",
+        "./node_modules/@types/node/url.d.ts",
+        "./node_modules/@types/node/zlib.d.ts"
       ],
       "./node_modules/server-destroy/dist/index.d.ts": [
         "./node_modules/@types/node/net.d.ts"
@@ -1367,7 +1362,6 @@
       "./node_modules/@types/connect/index.d.ts",
       "./node_modules/@types/content-disposition/index.d.ts",
       "./node_modules/@types/cookies/index.d.ts",
-      "./node_modules/@types/events/index.d.ts",
       "./node_modules/@types/express-serve-static-core/index.d.ts",
       "./node_modules/@types/express/index.d.ts",
       "./node_modules/@types/fs-extra/index.d.ts",
@@ -1441,10 +1435,10 @@
       "./node_modules/interfaces/dist/index.d.ts",
       "./node_modules/interfaces/dist/serialization.d.ts",
       "./node_modules/koa-ws-filter/dist/index.d.ts",
-      "./node_modules/koa-ws-filter/node_modules/@types/ws/index.d.ts",
       "./node_modules/promisified-sqlite/dist/promisified-sqlite.d.ts",
       "./node_modules/promisified-websocket/dist/index.d.ts",
       "./node_modules/promisified-websocket/dist/websocket.d.ts",
+      "./node_modules/promisified-websocket/node_modules/@types/ws/index.d.ts",
       "./node_modules/server-destroy/dist/index.d.ts",
       "./node_modules/startable/dist/adaptor.d.ts",
       "./node_modules/startable/dist/index.d.ts",
