@@ -17,7 +17,7 @@ import {
     DATABASE_PATH,
 } from './config';
 import {
-    StringifiedAssets,
+    Big2StringAssets,
 } from './interfaces';
 
 class Secretariat extends Startable {
@@ -35,7 +35,7 @@ class Secretariat extends Startable {
 
         this.httpRouter.post('/assets', async (ctx, next) => {
             const id = <string>ctx.query.id;
-            const assets = <StringifiedAssets>ctx.request.body;
+            const assets = <Big2StringAssets>ctx.request.body;
             this.broadcast.emit(`assets/${id}`, assets);
             await this.db.sql(`INSERT INTO assets (
                 id, json
@@ -100,7 +100,7 @@ class Secretariat extends Startable {
                     SELECT json FROM assets
                     WHERE id = '${id}' AND json_extract(json, '$.time') = ${maxTime}
                 ;`))[0].json;
-                ctx.body = <StringifiedAssets>JSON.parse(assetsJson);
+                ctx.body = <Big2StringAssets>JSON.parse(assetsJson);
             } else {
                 ctx.status = 404;
             }
@@ -111,7 +111,7 @@ class Secretariat extends Startable {
             const id = <string>ctx.query.id;
             // 即使 websocket 出错，出错事件也还在宏队列中，此时状态必为 STARTED
             const client = new Websocket(await ctx.state.upgrade());
-            const onAssets = async (assets: StringifiedAssets) => {
+            const onAssets = async (assets: Big2StringAssets) => {
                 try {
                     await client.send(JSON.stringify(assets));
                 } catch (err) {
