@@ -11,7 +11,14 @@ import { PromisifiedWebSocket as Websocket } from 'promisified-websocket';
 import { KoaWsFilter } from 'koa-ws-filter';
 import { enableDestroy } from 'server-destroy';
 import { REDIRECTOR_URL, LOCAL_HOSTNAME, DATABASE_PATH, } from './config';
+function jsonAndTime2ValueAndTime(jsonAndTime) {
+    return {
+        value: JSON.parse(jsonAndTime.value),
+        time: jsonAndTime.time,
+    };
+}
 class Secretariat extends Startable {
+    // TODO: 容错，压缩
     constructor() {
         super();
         this.koa = new Koa();
@@ -22,87 +29,86 @@ class Secretariat extends Startable {
         this.db = new Database(DATABASE_PATH);
         this.broadcast = new EventEmitter();
         this.koa.use(bodyParser());
-        this.httpRouter.post('/assets', async (ctx, next) => {
-            const id = ctx.query.id;
-            const assets = ctx.request.body;
-            this.broadcast.emit(`assets/${id}`, assets);
-            await this.db.sql(`INSERT INTO assets (
-                id, json
+        this.httpRouter.post('/:pid/:key', async (ctx, next) => {
+            const pid = ctx.params.pid;
+            const key = ctx.params.key;
+            const value = ctx.request.body;
+            const time = Number.parseInt(ctx.get('Time'));
+            this.broadcast.emit(`${pid}/${key}`, value);
+            await this.db.sql(`INSERT INTO json (
+                pid, key, value, time
             ) VALUES (
-                '${id}', '${JSON.stringify(assets)}'
+                '${pid}',
+                '${key}',
+                '${JSON.stringify(value)}',
+                ${time}
             );`);
-            ctx.status = 200;
+            ctx.status = 201;
             await next();
         });
-        this.httpRouter.delete('/assets', async (ctx, next) => {
-            const id = ctx.query.id;
+        this.httpRouter.delete('/:pid/:key', async (ctx, next) => {
+            const pid = ctx.params.pid;
+            const key = ctx.params.key;
             await this.db.sql(`
-                DELETE FROM assets
-                WHERE id = '${id}'
+                DELETE FROM json
+                WHERE pid = '${pid}' AND key = '${key}'
             ;`);
-            ctx.status = 200;
+            ctx.status = 204;
             await next();
         });
-        this.httpRouter.get('/balances', async (ctx, next) => {
-            const id = ctx.query.id;
+        this.httpRouter.get('/:pid/:key', async (ctx, next) => {
+            const pid = ctx.params.pid;
+            const key = ctx.params.key;
             const before = ctx.query.before;
-            const equities = (before
+            const jsonAndTimes = before
                 ? await this.db.sql(`
-                    SELECT 
-                        json_extract(json, '$.balance') AS balance, 
-                        json_extract(json, '$.time') AS time
-                    FROM assets
-                    WHERE id = '${id}' AND time < ${before}
+                    SELECT value, time FROM json
+                    WHERE pid = '${pid}' AND key = '${key}' AND time < ${before}
                     ORDER BY time
                 ;`)
                 : await this.db.sql(`
-                    SELECT 
-                        json_extract(json, '$.balance') AS balance, 
-                        json_extract(json, '$.time') AS time
-                    FROM assets
-                    WHERE id = '${id}'
+                    SELECT value, time FROM json
+                    WHERE pid = '${pid}' AND key = '${key}'
                     ORDER BY time
-                ;`))
-                .map(equity => [
-                equity.balance, equity.time,
-            ]);
-            ctx.body = equities;
+                ;`);
+            const valueAndTimes = jsonAndTimes.map(jsonAndTime2ValueAndTime);
+            ctx.body = valueAndTimes;
             await next();
         });
-        this.httpRouter.get('/assets/latest', async (ctx, next) => {
-            const id = ctx.query.id;
+        this.httpRouter.get('/:pid/:key/latest', async (ctx, next) => {
+            const pid = ctx.params.pid;
+            const key = ctx.params.key;
             const maxTime = (await this.db.sql(`
-                SELECT 
-                    MAX(json_extract(json, '$.time')) AS max_time
-                FROM assets
-                WHERE id = '${id}'
-            ;`))[0]['max_time'];
+                SELECT MAX(time) AS maxTime FROM equities
+                WHERE pid = '${pid}' AND key = '${key}'
+            ;`))[0]['maxTime'];
             if (maxTime !== null) {
-                const assetsJson = (await this.db.sql(`
-                    SELECT json FROM assets
-                    WHERE id = '${id}' AND json_extract(json, '$.time') = ${maxTime}
-                ;`))[0].json;
-                ctx.body = JSON.parse(assetsJson);
+                const jsonAndTime = (await this.db.sql(`
+                    SELECT value, time FROM json
+                    WHERE pid = '${pid}' AND key = '${key}' AND time = ${maxTime}
+                ;`))[0];
+                ctx.body = jsonAndTime2ValueAndTime(jsonAndTime);
             }
             else {
                 ctx.status = 404;
             }
             await next();
         });
-        this.wsRouter.all('/assets', async (ctx, next) => {
-            const id = ctx.query.id;
+        this.wsRouter.all('/:pid/:key', async (ctx, next) => {
+            const pid = ctx.params.pid;
+            const key = ctx.params.key;
             // 即使 websocket 出错，出错事件也还在宏队列中，此时状态必为 STARTED
             const client = new Websocket(await ctx.state.upgrade());
-            const onAssets = async (assets) => {
+            const onValue = async (value) => {
                 try {
-                    await client.send(JSON.stringify(assets));
+                    await client.send(JSON.stringify(value));
                 }
                 catch (err) {
                     this.stop(err).catch(() => { });
                 }
             };
-            this.broadcast.on(`assets/${id}`, onAssets);
-            await client.start(() => void this.broadcast.off(`assets/${id}`, onAssets));
+            this.broadcast.on(`${pid}/${key}`, onValue);
+            await client.start(() => void this.broadcast.off(`${pid}/${key}`, onValue));
             await next();
         });
         this.wsFilter.http(this.httpRouter.routes());
@@ -121,9 +127,11 @@ class Secretariat extends Startable {
     }
     async startDatabase() {
         await this.db.start().catch(err => void this.stop(err));
-        await this.db.sql(`CREATE TABLE IF NOT EXISTS assets (
-            id      VARCHAR(32)     NOT NULL,
-            json    JSON            NOT NULL
+        await this.db.sql(`CREATE TABLE IF NOT EXISTS json (
+            pid     VARCHAR(32)     NOT NULL,
+            key     VARCHAR(16)     NOT NULL,
+            value    JSON            NOT NULL,
+            time    BIGINT          NOT NULL
         );`);
     }
     async stopDatabase() {

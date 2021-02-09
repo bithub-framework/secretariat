@@ -1,91 +1,117 @@
 openapi: 3.0.1
 info:
-  title: Secretariat
-  version: 0.0.1
-tags:
--   name: equity
-    description: total net assets
+    title: Secretariat
+    version: 0.0.1
 paths:
-  /equity:
-      post:
-          tags:
-          -   equity
-          summary: Submit an equity
-          operationId: submitEquity
-          parameters:
-          -   $ref: '#/components/parameters/projectId'
-          requestBody:
-              description: A number of equity
-              content: 
-                  application/json: 
-                      schema: 
-                          $ref: '#/components/schemas/equity'
-              required: true
-          responses:
-              201: 
-                  description: Successful
-              400: 
-                  description: Invalid input
-      delete:
-          tags:
-          -   equity
-          summary: Remove all equities
-          operationId: removeEquities
-          parameters:
-          -   $ref: '#/components/parameters/projectId'
-          responses:
-              204:
-                  description: Successful
-              400:
-                  description: Invalid input
-      get:
-          tags:
-          - equity
-          summary: Get all equities
-          operationId: getEquities
-          parameters:
-          -   $ref: '#/components/parameters/projectId'
-          responses:
-              200:
-                  description: Successful
-                  content:
-                      application/json:
-                          schema:
-                              type: array
-                              items:
-                                  $ref: '#/components/schemas/equityObject'
-  /equity/latest:
-      get:
-          tags:
-          - equity
-          summary: Get latest equity
-          operationId: getLatestEquities
-          parameters:
-          -   $ref: '#/components/parameters/projectId'
-          responses:
-              200:
-                  description: Successful
-                  content: 
-                      application/json: 
-                          schema: 
-                              $ref: '#/components/schemas/equityObject'
+    /{pid}/{key}:
+        parameters:
+        -   $ref: '#/components/parameters/pid'
+        -   $ref: '#/components/parameters/key'
+        post:
+            summary: Submit a value
+            operationId: submit
+            parameters:
+            -   in: header
+                name: Time
+                description: The time when the value is generated
+                required: true
+                schema:
+                    $ref: '#/components/schemas/UnixTime'
+            requestBody:
+                description: A JSON value
+                content: 
+                    application/json: 
+                        schema: 
+                            $ref: '#/components/schemas/JsonValue'
+                required: true
+            responses:
+                201: 
+                    description: Successful
+                400: 
+                    description: Invalid input
+        delete:
+            summary: Remove all values
+            operationId: remove
+            responses:
+                204:
+                    description: Successful
+                400:
+                    description: Invalid input
+        get:
+            summary: Get all values
+            operationId: getEquities
+            parameters:
+            -   in: query
+                name: before
+                description: A Unix Time, values before which are specified
+                required: false
+                schema:
+                    $ref: '#/components/schemas/UnixTime'
+            responses:
+                200:
+                    description: Successful
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/ValueAndTime'
+    /{pid}/{key}/latest:
+        parameters:
+        -   $ref: '#/components/parameters/pid'
+        -   $ref: '#/components/parameters/key'
+        get:
+            summary: Get the latest value
+            operationId: getLatest
+            responses:
+                200:
+                    description: Successful
+                    content: 
+                        application/json: 
+                            schema: 
+                                $ref: '#/components/schemas/ValueAndTime'
+                404:
+                    description: Not found
 components:
-  schemas:
-      equity:
-          type: string
-          format: number
-      equityObject:
-          type: object
-          properties:
-              equity: 
-                  $ref: '#/components/schemas/equity'
-              time: 
-                  type: number
-  parameters:
-      projectId:
-          in: query
-          name: pid
-          description: Project ID
-          required: true
-          schema: 
-              type: string
+    schemas:
+        UnixTime:
+            type: integer
+            format: int64
+        JsonValue:
+            nullable: true
+            anyOf:
+            - type: string
+            - type: number
+            - type: integer
+            - type: boolean
+            - type: array
+              items: {}
+            - type: object
+        ValueAndTime:
+            type: object
+            properties:
+                value: 
+                    $ref: '#/components/schemas/JsonValue'
+                time: 
+                    type: number
+    parameters:
+        pid:
+            in: path
+            name: pid
+            description: Project ID
+            required: true
+            schema: 
+                type: string
+                format: kebab-case
+                minLength: 1
+                maxLength: 32
+        key:
+            in: path
+            name: key
+            description: Name of the posted value
+            required: true
+            schema:
+                type: string
+                format: kebab-case
+                minLength: 1
+                maxLength: 16
