@@ -1,5 +1,10 @@
 # Secretariat
 
+Secretariat collects
+
+- assets
+- 
+
 ## Submit assets
 
 - protocol: `http`

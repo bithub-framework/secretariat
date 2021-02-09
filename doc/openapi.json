@@ -1,0 +1,151 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Secretariat",
+    "version": "0.0.1"
+  },
+  "tags": [
+    {
+      "name": "equity",
+      "description": "total net assets"
+    }
+  ],
+  "paths": {
+    "/equity": {
+      "post": {
+        "tags": [
+          "equity"
+        ],
+        "summary": "Submit an equity",
+        "operationId": "submitEquity",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/projectId"
+          }
+        ],
+        "requestBody": {
+          "description": "A number of equity",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/equity"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "equity"
+        ],
+        "summary": "Remove all equities",
+        "operationId": "removeEquities",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/projectId"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "equity"
+        ],
+        "summary": "Get all equities",
+        "operationId": "getEquities",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/projectId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/equityObject"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/equity/latest": {
+      "get": {
+        "tags": [
+          "equity"
+        ],
+        "summary": "Get latest equity",
+        "operationId": "getLatestEquities",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/projectId"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/equityObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "equity": {
+        "type": "string",
+        "format": "number"
+      },
+      "equityObject": {
+        "type": "object",
+        "properties": {
+          "equity": {
+            "$ref": "#/components/schemas/equity"
+          },
+          "time": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "projectId": {
+        "in": "query",
+        "name": "pid",
+        "description": "Project ID",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
