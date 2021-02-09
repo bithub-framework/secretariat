@@ -3,7 +3,6 @@
 Secretariat collects
 
 - assets
-- 
 
 ## Submit assets
 
