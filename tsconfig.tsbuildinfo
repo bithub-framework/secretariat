@@ -631,8 +631,13 @@
         "signature": "ca745c380b79f32bd2d655989ca4aef9be9e8c928daed88bc9810197fceadacc",
         "affectsGlobalScope": false
       },
+      "./node_modules/@types/koa-compress/index.d.ts": {
+        "version": "43bd9252f5a8b18d795c5f34b0e5dc46abf7bd8662fbcd5ffc3113b3d59abab0",
+        "signature": "43bd9252f5a8b18d795c5f34b0e5dc46abf7bd8662fbcd5ffc3113b3d59abab0",
+        "affectsGlobalScope": false
+      },
       "./src/secretariat.ts": {
-        "version": "3f33c9d4ea6a765fa993a05aa76d22bff033b889b8e53bac16d76aa845648fb5",
+        "version": "90c58fcd07d4aa9b2780917cf7dc051cccd132b4e3ec5226c8338ce493962ef8",
         "signature": "65b5052982b1001a25a7cb738ee8ed5c560e2c099aa4a0cecafa067f6144219e",
         "affectsGlobalScope": false
       },
@@ -722,6 +727,11 @@
       ],
       "./node_modules/@types/koa-compose/index.d.ts": [
         "./node_modules/@types/koa/index.d.ts"
+      ],
+      "./node_modules/@types/koa-compress/index.d.ts": [
+        "./node_modules/@types/koa/index.d.ts",
+        "./node_modules/@types/node/index.d.ts",
+        "./node_modules/@types/node/zlib.d.ts"
       ],
       "./node_modules/@types/koa/index.d.ts": [
         "./node_modules/@types/accepts/index.d.ts",
@@ -1014,6 +1024,7 @@
       ],
       "./src/secretariat.ts": [
         "./node_modules/@types/koa-bodyparser/index.d.ts",
+        "./node_modules/@types/koa-compress/index.d.ts",
         "./node_modules/@types/koa/index.d.ts",
         "./node_modules/@types/koa__router/index.d.ts",
         "./node_modules/@types/node-fetch/index.d.ts",
@@ -1073,6 +1084,11 @@
       ],
       "./node_modules/@types/koa-compose/index.d.ts": [
         "./node_modules/@types/koa/index.d.ts"
+      ],
+      "./node_modules/@types/koa-compress/index.d.ts": [
+        "./node_modules/@types/koa/index.d.ts",
+        "./node_modules/@types/node/index.d.ts",
+        "./node_modules/@types/node/zlib.d.ts"
       ],
       "./node_modules/@types/koa/index.d.ts": [
         "./node_modules/@types/accepts/index.d.ts",
@@ -1375,6 +1391,7 @@
       "./node_modules/@types/keygrip/index.d.ts",
       "./node_modules/@types/koa-bodyparser/index.d.ts",
       "./node_modules/@types/koa-compose/index.d.ts",
+      "./node_modules/@types/koa-compress/index.d.ts",
       "./node_modules/@types/koa/index.d.ts",
       "./node_modules/@types/koa__router/index.d.ts",
       "./node_modules/@types/mime/index.d.ts",

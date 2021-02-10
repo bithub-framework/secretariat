@@ -11,6 +11,7 @@ import { PromisifiedWebSocket as Websocket } from 'promisified-websocket';
 import { KoaWsFilter } from 'koa-ws-filter';
 import { enableDestroy } from 'server-destroy';
 import assert from 'assert';
+import compress from 'koa-compress';
 import { REDIRECTOR_URL, LOCAL_HOSTNAME, DATABASE_PATH, } from './config';
 function jsonAndTime2ValueAndTime(jsonAndTime) {
     return {
@@ -19,7 +20,6 @@ function jsonAndTime2ValueAndTime(jsonAndTime) {
     };
 }
 class Secretariat extends Startable {
-    // TODO: 压缩
     constructor() {
         super();
         this.koa = new Koa();
@@ -83,7 +83,9 @@ class Secretariat extends Startable {
             ctx.body = valueAndTimes;
             await next();
         });
-        this.httpRouter.get('/:pid/:key/latest', async (ctx, next) => {
+        this.httpRouter.get('/:pid/:key/latest', compress({
+            defaultEncoding: '*',
+        })).get('/:pid/:key/latest', async (ctx, next) => {
             const pid = ctx.params.pid;
             const key = ctx.params.key;
             const maxTime = (await this.db.sql(`

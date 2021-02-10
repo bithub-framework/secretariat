@@ -12,6 +12,7 @@ import { PromisifiedWebSocket as Websocket } from 'promisified-websocket';
 import { KoaWsFilter, UpgradeState } from 'koa-ws-filter';
 import { enableDestroy } from 'server-destroy';
 import assert from 'assert';
+import compress from 'koa-compress';
 import {
     REDIRECTOR_URL,
     LOCAL_HOSTNAME,
@@ -39,7 +40,6 @@ class Secretariat extends Startable {
     private db = new Database(DATABASE_PATH);
     private broadcast = new EventEmitter();
 
-    // TODO: 压缩
     constructor() {
         super();
         this.koa.use(async (ctx, next) => {
@@ -100,7 +100,9 @@ class Secretariat extends Startable {
             await next();
         });
 
-        this.httpRouter.get('/:pid/:key/latest', async (ctx, next) => {
+        this.httpRouter.get('/:pid/:key/latest', compress({
+            defaultEncoding: '*',
+        })).get('/:pid/:key/latest', async (ctx, next) => {
             const pid = <string>ctx.params.pid;
             const key = <string>ctx.params.key;
             const maxTime = (await this.db.sql<{ maxTime: number | null }>(`
