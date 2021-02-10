@@ -173,7 +173,7 @@ class Secretariat extends Startable {
         await once(this.server, 'listening');
         const port = (<AddressInfo>this.server.address()).port;
         await fetch(
-            `${REDIRECTOR_URL}/secretariat`, {
+            `${REDIRECTOR_URL}/register/secretariat`, {
             method: 'PUT',
             body: `http://${LOCAL_HOSTNAME}:${port}`,
         });

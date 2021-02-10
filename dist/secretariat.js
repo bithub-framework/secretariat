@@ -150,7 +150,7 @@ class Secretariat extends Startable {
         this.server.listen();
         await once(this.server, 'listening');
         const port = this.server.address().port;
-        await fetch(`${REDIRECTOR_URL}/secretariat`, {
+        await fetch(`${REDIRECTOR_URL}/register/secretariat`, {
             method: 'PUT',
             body: `http://${LOCAL_HOSTNAME}:${port}`,
         });
