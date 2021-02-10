@@ -11,6 +11,7 @@ import { EventEmitter } from 'events';
 import { PromisifiedWebSocket as Websocket } from 'promisified-websocket';
 import { KoaWsFilter, UpgradeState } from 'koa-ws-filter';
 import { enableDestroy } from 'server-destroy';
+import assert from 'assert';
 import {
     REDIRECTOR_URL,
     LOCAL_HOSTNAME,
@@ -49,6 +50,7 @@ class Secretariat extends Startable {
         this.koa.use(bodyParser());
 
         this.httpRouter.post('/:pid/:key', async (ctx, next) => {
+            assert(ctx.is('application/json'));
             const pid = <string>ctx.params.pid;
             const key = <string>ctx.params.key;
             const value = <JsonValue>ctx.request.body;

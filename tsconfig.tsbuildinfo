@@ -632,7 +632,7 @@
         "affectsGlobalScope": false
       },
       "./src/secretariat.ts": {
-        "version": "b2dbb294492407da81300140db5f1090de8555d1d218682c8b47227f3931f53a",
+        "version": "4f50e10779ed5aa5e0e3853ca559119647fdde0aa299f83f345f3f7c81d280e0",
         "signature": "65b5052982b1001a25a7cb738ee8ed5c560e2c099aa4a0cecafa067f6144219e",
         "affectsGlobalScope": false
       },
@@ -1017,6 +1017,7 @@
         "./node_modules/@types/koa/index.d.ts",
         "./node_modules/@types/koa__router/index.d.ts",
         "./node_modules/@types/node-fetch/index.d.ts",
+        "./node_modules/@types/node/assert.d.ts",
         "./node_modules/@types/node/events.d.ts",
         "./node_modules/@types/node/http.d.ts",
         "./node_modules/@types/node/net.d.ts",
