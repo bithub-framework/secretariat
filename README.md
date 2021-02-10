@@ -4,7 +4,7 @@ Secretariat collects any customized infomation from secretaries.
 
 ## Interfaces
 
-[https://bithub-framework.github.io/secretariat/]()
+[https://bithub-framework.github.io/secretariat/](https://bithub-framework.github.io/secretariat/)
 
 ## Database
 

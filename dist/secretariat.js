@@ -18,7 +18,7 @@ function jsonAndTime2ValueAndTime(jsonAndTime) {
     };
 }
 class Secretariat extends Startable {
-    // TODO: 容错，压缩
+    // TODO: 压缩
     constructor() {
         super();
         this.koa = new Koa();
@@ -28,6 +28,11 @@ class Secretariat extends Startable {
         this.server = new Server();
         this.db = new Database(DATABASE_PATH);
         this.broadcast = new EventEmitter();
+        this.koa.use(async (ctx, next) => {
+            await next().catch(err => {
+                ctx.status = 400;
+            });
+        });
         this.koa.use(bodyParser());
         this.httpRouter.post('/:pid/:key', async (ctx, next) => {
             const pid = ctx.params.pid;
@@ -72,6 +77,7 @@ class Secretariat extends Startable {
                     ORDER BY time
                 ;`);
             const valueAndTimes = jsonAndTimes.map(jsonAndTime2ValueAndTime);
+            ctx.status = 200;
             ctx.body = valueAndTimes;
             await next();
         });
@@ -87,6 +93,7 @@ class Secretariat extends Startable {
                     SELECT value, time FROM json
                     WHERE pid = '${pid}' AND key = '${key}' AND time = ${maxTime}
                 ;`))[0];
+                ctx.status = 200;
                 ctx.body = jsonAndTime2ValueAndTime(jsonAndTime);
             }
             else {
@@ -130,7 +137,7 @@ class Secretariat extends Startable {
         await this.db.sql(`CREATE TABLE IF NOT EXISTS json (
             pid     VARCHAR(32)     NOT NULL,
             key     VARCHAR(16)     NOT NULL,
-            value    JSON            NOT NULL,
+            value   JSON            NOT NULL,
             time    BIGINT          NOT NULL
         );`);
     }

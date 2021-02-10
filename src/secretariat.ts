@@ -17,27 +17,10 @@ import {
     DATABASE_PATH,
 } from './config';
 import {
-    Big2StringAssets,
+    JsonValue,
+    JsonAndTime,
+    ValueAndTime,
 } from './interfaces';
-
-type ValueAndTime = {
-    value: JsonValue;
-    time: number;
-};
-
-type JsonAndTime = {
-    value: string;
-    time: number;
-}
-
-type JsonValue =
-    null |
-    number |
-    string |
-    JsonValue[] |
-    {
-        [key: string]: JsonValue;
-    };
 
 function jsonAndTime2ValueAndTime(jsonAndTime: JsonAndTime) {
     return <ValueAndTime>{
@@ -55,9 +38,14 @@ class Secretariat extends Startable {
     private db = new Database(DATABASE_PATH);
     private broadcast = new EventEmitter();
 
-    // TODO: 容错，压缩
+    // TODO: 压缩
     constructor() {
         super();
+        this.koa.use(async (ctx, next) => {
+            await next().catch(err => {
+                ctx.status = 400;
+            });
+        });
         this.koa.use(bodyParser());
 
         this.httpRouter.post('/:pid/:key', async (ctx, next) => {
@@ -105,6 +93,7 @@ class Secretariat extends Startable {
                     ORDER BY time
                 ;`);
             const valueAndTimes = jsonAndTimes.map(jsonAndTime2ValueAndTime);
+            ctx.status = 200;
             ctx.body = valueAndTimes;
             await next();
         });
@@ -121,6 +110,7 @@ class Secretariat extends Startable {
                     SELECT value, time FROM json
                     WHERE pid = '${pid}' AND key = '${key}' AND time = ${maxTime}
                 ;`))[0];
+                ctx.status = 200;
                 ctx.body = jsonAndTime2ValueAndTime(jsonAndTime);
             } else {
                 ctx.status = 404;
@@ -167,7 +157,7 @@ class Secretariat extends Startable {
         await this.db.sql(`CREATE TABLE IF NOT EXISTS json (
             pid     VARCHAR(32)     NOT NULL,
             key     VARCHAR(16)     NOT NULL,
-            value    JSON            NOT NULL,
+            value   JSON            NOT NULL,
             time    BIGINT          NOT NULL
         );`);
     }

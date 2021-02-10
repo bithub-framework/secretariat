@@ -472,8 +472,8 @@
         "affectsGlobalScope": false
       },
       "./src/interfaces.ts": {
-        "version": "c8395a58d60bd7b75380022844b13afca2f1ee722ca39bd23acb9816a3ba5eb9",
-        "signature": "c8395a58d60bd7b75380022844b13afca2f1ee722ca39bd23acb9816a3ba5eb9",
+        "version": "bf423d20df60103c08591af0455d6a300119ec4a9bbe15fb6fe0a5529eaaec59",
+        "signature": "ae6f572310410a056db67d5bcc8517d297f9480d571d45d0b539d40b77f3ce12",
         "affectsGlobalScope": false
       },
       "./node_modules/startable/dist/startable.d.ts": {
@@ -632,7 +632,7 @@
         "affectsGlobalScope": false
       },
       "./src/secretariat.ts": {
-        "version": "f261396c6818b52576aaee593493d7f6a7715ec00f5a105afd28b5b0915d9a51",
+        "version": "b2dbb294492407da81300140db5f1090de8555d1d218682c8b47227f3931f53a",
         "signature": "65b5052982b1001a25a7cb738ee8ed5c560e2c099aa4a0cecafa067f6144219e",
         "affectsGlobalScope": false
       },

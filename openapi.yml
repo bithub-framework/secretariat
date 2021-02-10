@@ -27,16 +27,12 @@ paths:
             responses:
                 201: 
                     description: Successful
-                400: 
-                    description: Invalid input
         delete:
             summary: Remove all values
             operationId: remove
             responses:
                 204:
                     description: Successful
-                400:
-                    description: Invalid input
         get:
             summary: Get all values
             operationId: getEquities
@@ -93,7 +89,7 @@ components:
                 value: 
                     $ref: '#/components/schemas/JsonValue'
                 time: 
-                    type: number
+                    $ref: '#/components/schemas/UnixTime'
     parameters:
         pid:
             in: path
