@@ -19,7 +19,6 @@ import {
     DATABASE_PATH,
 } from './config';
 import {
-    JsonValue,
     JsonAndTime,
     ValueAndTime,
 } from './interfaces';
@@ -53,7 +52,7 @@ class Secretariat extends Startable {
             assert(ctx.is('application/json'));
             const pid = <string>ctx.params.pid;
             const key = <string>ctx.params.key;
-            const value = <JsonValue>ctx.request.body;
+            const value = <unknown>ctx.request.body;
             const time = Number.parseInt(ctx.get('Time'));
             this.broadcast.emit(`${pid}/${key}`, value);
             await this.db.sql(`INSERT INTO json (
@@ -127,7 +126,7 @@ class Secretariat extends Startable {
             const key = <string>ctx.params.key;
             // 即使 websocket 出错，出错事件也还在宏队列中，此时状态必为 STARTED
             const client = new Websocket(await ctx.state.upgrade());
-            const onValue = async (value: JsonValue) => {
+            const onValue = async (value: unknown) => {
                 try {
                     await client.send(JSON.stringify(value));
                 } catch (err) {
