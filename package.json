@@ -6,8 +6,9 @@
     "types": "./dist/index.d.ts",
     "type": "module",
     "scripts": {
-        "test": "tsc -b ./test && ava",
-        "build": "tsc -b"
+        "test": "tsc -b ./test/src && ava",
+        "build": "tsc -b ./src",
+        "prepare": "npm run build"
     },
     "author": "Zim",
     "license": "SEE LICENSE IN ./LICENSE",

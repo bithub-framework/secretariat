@@ -3,12 +3,12 @@
         "target": "es2020",
         "module": "esnext",
         "moduleResolution": "node",
+        "esModuleInterop": true,
         "lib": [
             "esnext"
         ],
         "sourceMap": true,
         "strict": true,
-        "esModuleInterop": true,
         "experimentalDecorators": true,
     }
 }
