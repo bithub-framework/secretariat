@@ -2,14 +2,15 @@
     "name": "secretariat",
     "version": "0.0.1",
     "description": "",
-    "main": "./dist/index.js",
-    "types": "./dist/index.d.ts",
+    "main": "./dist/secretariat.js",
+    "types": "./dist/secretariat.d.ts",
     "type": "module",
     "scripts": {
         "test": "tsc -b ./test/src && ava",
         "build": "tsc -b ./src",
         "prepare": "npm run build"
     },
+    "bin": "./dist/script.js",
     "author": "Zim",
     "license": "SEE LICENSE IN ./LICENSE",
     "dependencies": {

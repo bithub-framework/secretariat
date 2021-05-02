@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { adaptor } from 'startable';
 import Secretariat from './secretariat';
 import { lockSync } from 'lockfile';
