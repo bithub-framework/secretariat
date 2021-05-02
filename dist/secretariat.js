@@ -11,8 +11,10 @@ import { KoaWsFilter } from 'koa-ws-filter';
 import { enableDestroy } from 'server-destroy';
 import assert from 'assert';
 import compress from 'koa-compress';
-import { kebabCaseRegex, } from './validations';
-import { DATABASE_PATH, SOCKFILE_PATH, } from './config';
+import { ensureDirSync, removeSync } from 'fs-extra';
+import { dirname } from 'path';
+import { kebabCase as kebabCaseRegex } from 'id-case';
+import { DATABASE_ABSPATH, SOCKFILE_ABSPATH, } from './config';
 class Secretariat extends Startable {
     constructor() {
         super();
@@ -21,7 +23,7 @@ class Secretariat extends Startable {
         this.wsRouter = new Router();
         this.wsFilter = new KoaWsFilter();
         this.server = new Server();
-        this.db = new Database(DATABASE_PATH);
+        this.db = new Database(DATABASE_ABSPATH);
         this.broadcast = new EventEmitter();
         this.koa.use(async (ctx, next) => {
             await next().catch(() => {
@@ -125,7 +127,9 @@ class Secretariat extends Startable {
         await this.db.stop();
     }
     async startServer() {
-        this.server.listen(SOCKFILE_PATH);
+        ensureDirSync(dirname(SOCKFILE_ABSPATH));
+        removeSync(SOCKFILE_ABSPATH);
+        this.server.listen(SOCKFILE_ABSPATH);
         await once(this.server, 'listening');
     }
     async stopServer() {

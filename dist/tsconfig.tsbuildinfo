@@ -212,23 +212,8 @@
         "affectsGlobalScope": true
       },
       "../src/config.ts": {
-        "version": "f04679f0690b7716ce29974d03db45f608c297b3cc8cf2bc63076037e168a658",
-        "signature": "9037660a62d45cc38d33bac475353f5f2b679f72e92a41b185b23fb569ddd8a3",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@types/big.js/index.d.ts": {
-        "version": "59a29628a43044bdd97b43aec2c1fdf37269014b5df66d2fdc17732c205d5ecc",
-        "signature": "59a29628a43044bdd97b43aec2c1fdf37269014b5df66d2fdc17732c205d5ecc",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/interfaces/dist/data.d.ts": {
-        "version": "6ab884c62664310d79bdb4a8dce0c2d028a77114110ce4e28a14ebe48f23dd5d",
-        "signature": "6ab884c62664310d79bdb4a8dce0c2d028a77114110ce4e28a14ebe48f23dd5d",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/interfaces/dist/serialization.d.ts": {
-        "version": "c63c5839c8fe530830151852d08025aa8e4bf47f118866f3316e58c8395b3abc",
-        "signature": "c63c5839c8fe530830151852d08025aa8e4bf47f118866f3316e58c8395b3abc",
+        "version": "a31e44c8df509c2f219d51e2615af569bde0db8a8e866edf5894d4119fdf053f",
+        "signature": "e5b41f64fd05002df0d91338516701a8240e1dafad4ed1dcd8c2b28ccc7ed9e8",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/node/globals.d.ts": {
@@ -466,26 +451,6 @@
         "signature": "5825520e2099309182c6e2a2b3061b060d42a098c58f67d1754880a7e2cce99a",
         "affectsGlobalScope": false
       },
-      "../node_modules/interfaces/dist/config.d.ts": {
-        "version": "61f1814d1eaebee09c7b27bef2eeffc522d85f2bf467bbf59d7ac4f107900278",
-        "signature": "61f1814d1eaebee09c7b27bef2eeffc522d85f2bf467bbf59d7ac4f107900278",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/interfaces/dist/context.d.ts": {
-        "version": "c4b234371ed4ba09190730ffd0ff48f6c6793f12b56912e9d231402604e3049a",
-        "signature": "c4b234371ed4ba09190730ffd0ff48f6c6793f12b56912e9d231402604e3049a",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/interfaces/dist/index.d.ts": {
-        "version": "4062b915bfff3de063bfd9f32d450872d644cc071f40f615b87bdf54a8687542",
-        "signature": "4062b915bfff3de063bfd9f32d450872d644cc071f40f615b87bdf54a8687542",
-        "affectsGlobalScope": false
-      },
-      "../src/interfaces.ts": {
-        "version": "c8395a58d60bd7b75380022844b13afca2f1ee722ca39bd23acb9816a3ba5eb9",
-        "signature": "c8395a58d60bd7b75380022844b13afca2f1ee722ca39bd23acb9816a3ba5eb9",
-        "affectsGlobalScope": false
-      },
       "../node_modules/startable/dist/startable.d.ts": {
         "version": "3fde742d6d05e287c82325a95b80db4925181359b9ac74012b1115f1c58eb85d",
         "signature": "3fde742d6d05e287c82325a95b80db4925181359b9ac74012b1115f1c58eb85d",
@@ -626,13 +591,18 @@
         "signature": "43bd9252f5a8b18d795c5f34b0e5dc46abf7bd8662fbcd5ffc3113b3d59abab0",
         "affectsGlobalScope": false
       },
-      "../src/validations.ts": {
-        "version": "4b97dc4536c997fa8aebbe06bd644cdc6b1a652ea2d7eb5851926561bc395845",
-        "signature": "5df7982ba60b3a13eea294a00a4ebdd15eecc3b058d04afa5917d9e75c4fc52a",
+      "../node_modules/@types/fs-extra/index.d.ts": {
+        "version": "8d01c38ccb9af3a4035a68818799e5ef32ccc8cf70bdb83e181e1921d7ad32f6",
+        "signature": "8d01c38ccb9af3a4035a68818799e5ef32ccc8cf70bdb83e181e1921d7ad32f6",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/id-case/dist/index.d.ts": {
+        "version": "925e520be7e8f1e37eb822b6ef609ad354b2c8b33db34f0774d2869a9cb4db4a",
+        "signature": "925e520be7e8f1e37eb822b6ef609ad354b2c8b33db34f0774d2869a9cb4db4a",
         "affectsGlobalScope": false
       },
       "../src/secretariat.ts": {
-        "version": "4db75ff9b34777805865169cb0b65dbe6c96631febfb427fcaa14f759d360e73",
+        "version": "4162794a5d762b402705e55991f7bdc1cb67e2bcc7e473c129fca94a82fd458c",
         "signature": "b5d0c6d304fd2d33b222db75f076263948b3f39aa3cadf499ec37432d260b4ae",
         "affectsGlobalScope": false
       },
@@ -641,14 +611,14 @@
         "signature": "cee125153eece5bd0bca08d97fb4fbb9ef6ff3e72d89f7a3bc1a52b828128cef",
         "affectsGlobalScope": false
       },
-      "../node_modules/@types/fs-extra/index.d.ts": {
-        "version": "8d01c38ccb9af3a4035a68818799e5ef32ccc8cf70bdb83e181e1921d7ad32f6",
-        "signature": "8d01c38ccb9af3a4035a68818799e5ef32ccc8cf70bdb83e181e1921d7ad32f6",
+      "../src/script.ts": {
+        "version": "39cf135f79390813b217bcdbd57de67b9a67bdbef2dc072de762c73f2b03bee8",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
-      "../src/script.ts": {
-        "version": "9001b5438a0b73d6c1ec5284f2eb57337a5b7ee93a1895e2d86b18ddab68cdab",
-        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+      "../node_modules/@types/big.js/index.d.ts": {
+        "version": "59a29628a43044bdd97b43aec2c1fdf37269014b5df66d2fdc17732c205d5ecc",
+        "signature": "59a29628a43044bdd97b43aec2c1fdf37269014b5df66d2fdc17732c205d5ecc",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/bluebird/index.d.ts": {
@@ -964,29 +934,6 @@
         "../node_modules/@types/node/index.d.ts",
         "../node_modules/@types/node/stream.d.ts"
       ],
-      "../node_modules/interfaces/dist/config.d.ts": [
-        "../node_modules/@types/big.js/index.d.ts"
-      ],
-      "../node_modules/interfaces/dist/context.d.ts": [
-        "../node_modules/@types/big.js/index.d.ts",
-        "../node_modules/@types/node/events.d.ts",
-        "../node_modules/@types/node/index.d.ts",
-        "../node_modules/interfaces/dist/config.d.ts",
-        "../node_modules/interfaces/dist/data.d.ts"
-      ],
-      "../node_modules/interfaces/dist/data.d.ts": [
-        "../node_modules/@types/big.js/index.d.ts"
-      ],
-      "../node_modules/interfaces/dist/index.d.ts": [
-        "../node_modules/interfaces/dist/config.d.ts",
-        "../node_modules/interfaces/dist/context.d.ts",
-        "../node_modules/interfaces/dist/data.d.ts",
-        "../node_modules/interfaces/dist/serialization.d.ts"
-      ],
-      "../node_modules/interfaces/dist/serialization.d.ts": [
-        "../node_modules/@types/big.js/index.d.ts",
-        "../node_modules/interfaces/dist/data.d.ts"
-      ],
       "../node_modules/koa-ws-filter/dist/index.d.ts": [
         "../node_modules/@types/koa/index.d.ts",
         "../node_modules/@types/ws/index.d.ts"
@@ -1019,9 +966,6 @@
         "../node_modules/@types/node/os.d.ts",
         "../node_modules/@types/node/path.d.ts"
       ],
-      "../src/interfaces.ts": [
-        "../node_modules/interfaces/dist/index.d.ts"
-      ],
       "../src/script.ts": [
         "../node_modules/@types/fs-extra/index.d.ts",
         "../node_modules/@types/lockfile/index.d.ts",
@@ -1031,6 +975,7 @@
         "../src/secretariat.ts"
       ],
       "../src/secretariat.ts": [
+        "../node_modules/@types/fs-extra/index.d.ts",
         "../node_modules/@types/koa-bodyparser/index.d.ts",
         "../node_modules/@types/koa-compress/index.d.ts",
         "../node_modules/@types/koa/index.d.ts",
@@ -1038,13 +983,14 @@
         "../node_modules/@types/node/assert.d.ts",
         "../node_modules/@types/node/events.d.ts",
         "../node_modules/@types/node/http.d.ts",
+        "../node_modules/@types/node/path.d.ts",
+        "../node_modules/id-case/dist/index.d.ts",
         "../node_modules/koa-ws-filter/dist/index.d.ts",
         "../node_modules/promisified-sqlite/dist/promisified-sqlite.d.ts",
         "../node_modules/promisify-websocket/dist/promisify-websocket.d.ts",
         "../node_modules/server-destroy/dist/index.d.ts",
         "../node_modules/startable/dist/index.d.ts",
-        "../src/config.ts",
-        "../src/validations.ts"
+        "../src/config.ts"
       ]
     },
     "exportedModulesMap": {
@@ -1313,29 +1259,6 @@
         "../node_modules/@types/node/index.d.ts",
         "../node_modules/@types/node/stream.d.ts"
       ],
-      "../node_modules/interfaces/dist/config.d.ts": [
-        "../node_modules/@types/big.js/index.d.ts"
-      ],
-      "../node_modules/interfaces/dist/context.d.ts": [
-        "../node_modules/@types/big.js/index.d.ts",
-        "../node_modules/@types/node/events.d.ts",
-        "../node_modules/@types/node/index.d.ts",
-        "../node_modules/interfaces/dist/config.d.ts",
-        "../node_modules/interfaces/dist/data.d.ts"
-      ],
-      "../node_modules/interfaces/dist/data.d.ts": [
-        "../node_modules/@types/big.js/index.d.ts"
-      ],
-      "../node_modules/interfaces/dist/index.d.ts": [
-        "../node_modules/interfaces/dist/config.d.ts",
-        "../node_modules/interfaces/dist/context.d.ts",
-        "../node_modules/interfaces/dist/data.d.ts",
-        "../node_modules/interfaces/dist/serialization.d.ts"
-      ],
-      "../node_modules/interfaces/dist/serialization.d.ts": [
-        "../node_modules/@types/big.js/index.d.ts",
-        "../node_modules/interfaces/dist/data.d.ts"
-      ],
       "../node_modules/koa-ws-filter/dist/index.d.ts": [
         "../node_modules/@types/koa/index.d.ts",
         "../node_modules/@types/ws/index.d.ts"
@@ -1363,9 +1286,6 @@
       "../node_modules/startable/dist/startable.d.ts": [
         "../node_modules/@types/node/events.d.ts",
         "../node_modules/@types/node/index.d.ts"
-      ],
-      "../src/interfaces.ts": [
-        "../node_modules/interfaces/dist/index.d.ts"
       ],
       "../src/secretariat.ts": [
         "../node_modules/startable/dist/index.d.ts"
@@ -1448,11 +1368,7 @@
       "../node_modules/@types/sqlite3/index.d.ts",
       "../node_modules/@types/ws/index.d.ts",
       "../node_modules/form-data/index.d.ts",
-      "../node_modules/interfaces/dist/config.d.ts",
-      "../node_modules/interfaces/dist/context.d.ts",
-      "../node_modules/interfaces/dist/data.d.ts",
-      "../node_modules/interfaces/dist/index.d.ts",
-      "../node_modules/interfaces/dist/serialization.d.ts",
+      "../node_modules/id-case/dist/index.d.ts",
       "../node_modules/koa-ws-filter/dist/index.d.ts",
       "../node_modules/promisified-sqlite/dist/interfaces.d.ts",
       "../node_modules/promisified-sqlite/dist/promisified-sqlite.d.ts",
@@ -1462,10 +1378,8 @@
       "../node_modules/startable/dist/index.d.ts",
       "../node_modules/startable/dist/startable.d.ts",
       "../src/config.ts",
-      "../src/interfaces.ts",
       "../src/script.ts",
       "../src/secretariat.ts",
-      "../src/validations.ts",
       "../../../../../../usr/local/lib/node_modules/typescript/lib/lib.es2015.collection.d.ts",
       "../../../../../../usr/local/lib/node_modules/typescript/lib/lib.es2015.core.d.ts",
       "../../../../../../usr/local/lib/node_modules/typescript/lib/lib.es2015.d.ts",

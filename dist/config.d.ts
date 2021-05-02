@@ -1,3 +1,3 @@
-export declare const DATABASE_PATH: string;
-export declare const LOCKFILE_PATH = "/var/run/bithub/secretariat.lock";
-export declare const SOCKFILE_PATH = "/var/run/bithub/secretariat.sock";
+export declare const DATABASE_ABSPATH: string;
+export declare const LOCKFILE_ABSPATH = "/run/bithub/secretariat.lock";
+export declare const SOCKFILE_ABSPATH = "/run/bithub/secretariat.sock";

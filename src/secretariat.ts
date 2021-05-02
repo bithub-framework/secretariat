@@ -11,12 +11,12 @@ import { KoaWsFilter, UpgradeState } from 'koa-ws-filter';
 import { enableDestroy } from 'server-destroy';
 import assert from 'assert';
 import compress from 'koa-compress';
+import { ensureDirSync, removeSync } from 'fs-extra';
+import { dirname } from 'path';
+import { kebabCase as kebabCaseRegex } from 'id-case';
 import {
-    kebabCaseRegex,
-} from './validations';
-import {
-    DATABASE_PATH,
-    SOCKFILE_PATH,
+    DATABASE_ABSPATH,
+    SOCKFILE_ABSPATH,
 } from './config';
 
 class Secretariat extends Startable {
@@ -25,7 +25,7 @@ class Secretariat extends Startable {
     private wsRouter = new Router<UpgradeState, {}>();
     private wsFilter = new KoaWsFilter();
     private server = new Server();
-    private db = new Database(DATABASE_PATH);
+    private db = new Database(DATABASE_ABSPATH);
     private broadcast = new EventEmitter();
 
     constructor() {
@@ -145,14 +145,16 @@ class Secretariat extends Startable {
     }
 
     private async startServer() {
-        this.server.listen(SOCKFILE_PATH);
+        ensureDirSync(dirname(SOCKFILE_ABSPATH));
+        removeSync(SOCKFILE_ABSPATH);
+        this.server.listen(SOCKFILE_ABSPATH);
         await once(this.server, 'listening');
     }
 
     private async stopServer() {
-        this.server!.destroy();
+        this.server.destroy();
         await Promise.all([
-            once(this.server!, 'close'),
+            once(this.server, 'close'),
             this.wsFilter.close(),
         ]);
     }
