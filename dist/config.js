@@ -1,7 +1,6 @@
 import { homedir } from 'os';
 import { resolve } from 'path';
 export const DATABASE_PATH = resolve(homedir(), './.bithub/secretariat.db');
-// No trailing slash
-export const REDIRECTOR_URL = 'http://localhost:12000';
-export const LOCAL_HOSTNAME = 'localhost';
+export const LOCKFILE_PATH = '/var/run/bithub/secretariat.lock';
+export const SOCKFILE_PATH = '/var/run/bithub/secretariat.sock';
 //# sourceMappingURL=config.js.map

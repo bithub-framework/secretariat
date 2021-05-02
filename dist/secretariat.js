@@ -3,22 +3,16 @@ import Router from '@koa/router';
 import Startable from 'startable';
 import { Server } from 'http';
 import { once } from 'events';
-import fetch from 'node-fetch';
 import { Database } from 'promisified-sqlite';
 import bodyParser from 'koa-bodyparser';
 import { EventEmitter } from 'events';
-import { PromisifiedWebSocket as Websocket } from 'promisified-websocket';
+import { promisifyWebsocket } from 'promisify-websocket';
 import { KoaWsFilter } from 'koa-ws-filter';
 import { enableDestroy } from 'server-destroy';
 import assert from 'assert';
 import compress from 'koa-compress';
-import { REDIRECTOR_URL, LOCAL_HOSTNAME, DATABASE_PATH, } from './config';
-function jsonAndTime2ValueAndTime(jsonAndTime) {
-    return {
-        value: JSON.parse(jsonAndTime.value),
-        time: jsonAndTime.time,
-    };
-}
+import { kebabCaseRegex, } from './validations';
+import { DATABASE_PATH, SOCKFILE_PATH, } from './config';
 class Secretariat extends Startable {
     constructor() {
         super();
@@ -30,96 +24,90 @@ class Secretariat extends Startable {
         this.db = new Database(DATABASE_PATH);
         this.broadcast = new EventEmitter();
         this.koa.use(async (ctx, next) => {
-            await next().catch(err => {
+            await next().catch(() => {
                 ctx.status = 400;
             });
         });
         this.koa.use(bodyParser());
         this.httpRouter.post('/:pid/:key', async (ctx, next) => {
+            const pid = ctx.params.pid.toLowerCase();
+            assert(kebabCaseRegex.test(pid));
+            const key = ctx.params.key.toLocaleLowerCase();
+            assert(kebabCaseRegex.test(key));
             assert(ctx.is('application/json'));
-            const pid = ctx.params.pid;
-            const key = ctx.params.key;
-            const value = ctx.request.body;
-            const time = Number.parseInt(ctx.get('Time'));
-            this.broadcast.emit(`${pid}/${key}`, value);
-            await this.db.sql(`INSERT INTO json (
+            const json = ctx.request.rawBody;
+            const time = Number.parseInt(ctx.get('Server-Time'));
+            assert(Number.isInteger(time));
+            this.broadcast.emit(`${pid}/${key}`, json);
+            await this.db.sql(`INSERT INTO history (
                 pid, key, value, time
             ) VALUES (
                 '${pid}',
                 '${key}',
-                '${JSON.stringify(value)}',
+                '${json}',
                 ${time}
             );`);
             ctx.status = 201;
             await next();
         });
         this.httpRouter.delete('/:pid/:key', async (ctx, next) => {
-            const pid = ctx.params.pid;
-            const key = ctx.params.key;
+            const pid = ctx.params.pid.toLowerCase();
+            assert(kebabCaseRegex.test(pid));
+            const key = ctx.params.key.toLocaleLowerCase();
+            assert(kebabCaseRegex.test(key));
             await this.db.sql(`
-                DELETE FROM json
+                DELETE FROM history
                 WHERE pid = '${pid}' AND key = '${key}'
             ;`);
             ctx.status = 204;
             await next();
         });
-        this.httpRouter.get('/:pid/:key', async (ctx, next) => {
-            const pid = ctx.params.pid;
-            const key = ctx.params.key;
-            const before = ctx.query.before;
-            const jsonAndTimes = before
-                ? await this.db.sql(`
-                    SELECT value, time FROM json
-                    WHERE pid = '${pid}' AND key = '${key}' AND time < ${before}
-                    ORDER BY time
-                ;`)
-                : await this.db.sql(`
-                    SELECT value, time FROM json
-                    WHERE pid = '${pid}' AND key = '${key}'
-                    ORDER BY time
-                ;`);
-            const valueAndTimes = jsonAndTimes.map(jsonAndTime2ValueAndTime);
-            ctx.status = 200;
-            ctx.body = valueAndTimes;
-            await next();
-        });
-        this.httpRouter.get('/:pid/:key/latest', compress({
-            defaultEncoding: '*',
-        })).get('/:pid/:key/latest', async (ctx, next) => {
-            const pid = ctx.params.pid;
-            const key = ctx.params.key;
-            const maxTime = (await this.db.sql(`
-                SELECT MAX(time) AS maxTime FROM equities
+        this.httpRouter
+            .get('/:pid/:key', compress())
+            .get('/:pid/:key', async (ctx, next) => {
+            const pid = ctx.params.pid.toLowerCase();
+            assert(kebabCaseRegex.test(pid));
+            const key = ctx.params.key.toLocaleLowerCase();
+            assert(kebabCaseRegex.test(key));
+            let before = null;
+            if (ctx.query.before) {
+                before = Number.parseInt(ctx.query.before);
+                assert(Number.isInteger(before));
+            }
+            let latest = null;
+            if (ctx.query.latest) {
+                latest = Number.parseInt(ctx.query.latest);
+                assert(Number.isInteger(latest));
+            }
+            const jsons = (await this.db.sql(`
+                SELECT value FROM json
                 WHERE pid = '${pid}' AND key = '${key}'
-            ;`))[0]['maxTime'];
-            if (maxTime !== null) {
-                const jsonAndTime = (await this.db.sql(`
-                    SELECT value, time FROM json
-                    WHERE pid = '${pid}' AND key = '${key}' AND time = ${maxTime}
-                ;`))[0];
-                ctx.status = 200;
-                ctx.body = jsonAndTime2ValueAndTime(jsonAndTime);
-            }
-            else {
-                ctx.status = 404;
-            }
+                    ${before ? `AND time < ${before}` : ''}
+                ORDER BY time DESC
+                ${latest ? `LIMIT ${latest}` : ''}
+            ;`))
+                .reverse()
+                .map(row => row.value);
+            ctx.status = 200;
+            ctx.body = JSON.stringify(jsons);
             await next();
         });
         this.wsRouter.all('/:pid/:key', async (ctx, next) => {
-            const pid = ctx.params.pid;
-            const key = ctx.params.key;
-            // 即使 websocket 出错，出错事件也还在宏队列中，此时状态必为 STARTED
-            const client = new Websocket(await ctx.state.upgrade());
-            const onValue = async (value) => {
+            const pid = ctx.params.pid.toLowerCase();
+            assert(kebabCaseRegex.test(pid));
+            const key = ctx.params.key.toLocaleLowerCase();
+            assert(kebabCaseRegex.test(key));
+            const client = promisifyWebsocket(await ctx.state.upgrade());
+            const onJson = async (json) => {
                 try {
-                    await client.send(JSON.stringify(value));
+                    await client.sendAsync(json);
                 }
                 catch (err) {
                     this.stop(err).catch(() => { });
                 }
             };
-            this.broadcast.on(`${pid}/${key}`, onValue);
-            await client.start(() => void this.broadcast.off(`${pid}/${key}`, onValue));
+            this.broadcast.on(`${pid}/${key}`, onJson);
+            client.on('close', () => void this.broadcast.off(`${pid}/${key}`, onJson));
             await next();
         });
         this.wsFilter.http(this.httpRouter.routes());
@@ -129,33 +117,16 @@ class Secretariat extends Startable {
         enableDestroy(this.server);
     }
     async _start() {
-        await this.startDatabase();
+        await this.db.start(this.starp);
         await this.startServer();
     }
     async _stop() {
         await this.stopServer();
-        await this.stopDatabase();
-    }
-    async startDatabase() {
-        await this.db.start().catch(err => void this.stop(err));
-        await this.db.sql(`CREATE TABLE IF NOT EXISTS json (
-            pid     VARCHAR(32)     NOT NULL,
-            key     VARCHAR(16)     NOT NULL,
-            value   JSON            NOT NULL,
-            time    BIGINT          NOT NULL
-        );`);
-    }
-    async stopDatabase() {
         await this.db.stop();
     }
     async startServer() {
-        this.server.listen();
+        this.server.listen(SOCKFILE_PATH);
         await once(this.server, 'listening');
-        const port = this.server.address().port;
-        await fetch(`${REDIRECTOR_URL}/register/secretariat`, {
-            method: 'PUT',
-            body: `http://${LOCAL_HOSTNAME}:${port}`,
-        });
     }
     async stopServer() {
         this.server.destroy();

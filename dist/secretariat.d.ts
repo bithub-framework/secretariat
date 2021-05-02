@@ -10,8 +10,6 @@ declare class Secretariat extends Startable {
     constructor();
     protected _start(): Promise<void>;
     protected _stop(): Promise<void>;
-    private startDatabase;
-    private stopDatabase;
     private startServer;
     private stopServer;
 }
