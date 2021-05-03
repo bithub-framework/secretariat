@@ -7,7 +7,7 @@
     "type": "module",
     "scripts": {
         "test": "tsc -b ./test/src && ava",
-        "build": "tsc -b ./src",
+        "build": "tsc -b ./src && gcc -o ./dist/node-sgid -O0 ./src/node-sgid.c",
         "prepare": "npm run build"
     },
     "bin": "./dist/script.js",

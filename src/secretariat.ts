@@ -11,13 +11,13 @@ import { KoaWsFilter, UpgradeState } from 'koa-ws-filter';
 import { enableDestroy } from 'server-destroy';
 import assert from 'assert';
 import compress from 'koa-compress';
-import { ensureDirSync, removeSync } from 'fs-extra';
-import { dirname } from 'path';
+import fse from 'fs-extra';
 import { kebabCase as kebabCaseRegex } from 'id-case';
 import {
     DATABASE_ABSPATH,
     SOCKFILE_ABSPATH,
 } from './config';
+const { removeSync } = fse;
 
 class Secretariat extends Startable {
     private koa = new Koa();
@@ -145,7 +145,6 @@ class Secretariat extends Startable {
     }
 
     private async startServer() {
-        ensureDirSync(dirname(SOCKFILE_ABSPATH));
         removeSync(SOCKFILE_ABSPATH);
         this.server.listen(SOCKFILE_ABSPATH);
         await once(this.server, 'listening');

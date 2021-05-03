@@ -11,10 +11,10 @@ import { KoaWsFilter } from 'koa-ws-filter';
 import { enableDestroy } from 'server-destroy';
 import assert from 'assert';
 import compress from 'koa-compress';
-import { ensureDirSync, removeSync } from 'fs-extra';
-import { dirname } from 'path';
+import fse from 'fs-extra';
 import { kebabCase as kebabCaseRegex } from 'id-case';
 import { DATABASE_ABSPATH, SOCKFILE_ABSPATH, } from './config';
+const { removeSync } = fse;
 class Secretariat extends Startable {
     constructor() {
         super();
@@ -127,7 +127,6 @@ class Secretariat extends Startable {
         await this.db.stop();
     }
     async startServer() {
-        ensureDirSync(dirname(SOCKFILE_ABSPATH));
         removeSync(SOCKFILE_ABSPATH);
         this.server.listen(SOCKFILE_ABSPATH);
         await once(this.server, 'listening');

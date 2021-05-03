@@ -212,8 +212,8 @@
         "affectsGlobalScope": true
       },
       "../src/config.ts": {
-        "version": "a31e44c8df509c2f219d51e2615af569bde0db8a8e866edf5894d4119fdf053f",
-        "signature": "e5b41f64fd05002df0d91338516701a8240e1dafad4ed1dcd8c2b28ccc7ed9e8",
+        "version": "10366bc11ba103e96a39fcc36fc9b782fcdb46f7328b1e8be143bd18b96310b5",
+        "signature": "e731bb26da58ad1915a842900bae1c35c600192bba363793966e266daf6600fe",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/node/globals.d.ts": {
@@ -602,7 +602,7 @@
         "affectsGlobalScope": false
       },
       "../src/secretariat.ts": {
-        "version": "4162794a5d762b402705e55991f7bdc1cb67e2bcc7e473c129fca94a82fd458c",
+        "version": "ec9741f6553bdc6263f9a80070bb36efe346a0b43097860e8d05468683c6a9e1",
         "signature": "b5d0c6d304fd2d33b222db75f076263948b3f39aa3cadf499ec37432d260b4ae",
         "affectsGlobalScope": false
       },
@@ -612,8 +612,8 @@
         "affectsGlobalScope": false
       },
       "../src/script.ts": {
-        "version": "d73bd77d373b113d57bf1144ac17eec4385679a024bfc74e4eaef25c1f417ac2",
-        "signature": "43e818adf60173644896298637f47b01d5819b17eda46eaa32d0c7d64724d012",
+        "version": "86e23182ac004451e47fa098f90929b0b96498c3c82ae6360b5b689dd83b243e",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/big.js/index.d.ts": {
@@ -962,14 +962,8 @@
         "../node_modules/@types/node/events.d.ts",
         "../node_modules/@types/node/index.d.ts"
       ],
-      "../src/config.ts": [
-        "../node_modules/@types/node/os.d.ts",
-        "../node_modules/@types/node/path.d.ts"
-      ],
       "../src/script.ts": [
-        "../node_modules/@types/fs-extra/index.d.ts",
         "../node_modules/@types/lockfile/index.d.ts",
-        "../node_modules/@types/node/path.d.ts",
         "../node_modules/startable/dist/index.d.ts",
         "../src/config.ts",
         "../src/secretariat.ts"
@@ -983,7 +977,6 @@
         "../node_modules/@types/node/assert.d.ts",
         "../node_modules/@types/node/events.d.ts",
         "../node_modules/@types/node/http.d.ts",
-        "../node_modules/@types/node/path.d.ts",
         "../node_modules/id-case/dist/index.d.ts",
         "../node_modules/koa-ws-filter/dist/index.d.ts",
         "../node_modules/promisified-sqlite/dist/promisified-sqlite.d.ts",
