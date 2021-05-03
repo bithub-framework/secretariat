@@ -83,11 +83,13 @@ class Secretariat extends Startable {
                 assert(kebabCaseRegex.test(key));
                 let before: number | null = null;
                 if (ctx.query.before) {
+                    assert(typeof ctx.query.before === 'string');
                     before = Number.parseInt(ctx.query.before);
                     assert(Number.isInteger(before));
                 }
                 let latest: number | null = null;
                 if (ctx.query.latest) {
+                    assert(typeof ctx.query.latest === 'string');
                     latest = Number.parseInt(ctx.query.latest);
                     assert(Number.isInteger(latest));
                 }
