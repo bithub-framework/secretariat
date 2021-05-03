@@ -14,6 +14,10 @@ int main(int argc, char* argv[]) {
     char scriptpath[PATH_MAX * 2];
     sprintf(scriptpath, "%s/script.js", exepath);
 
+    /*
+        the behavior for #! is undefined in posix and differs between implementations,
+        it's safer to use absolute path
+    */
     if (execle(
         "/usr/local/bin/node",
         "/usr/local/bin/node",
