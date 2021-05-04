@@ -1,61 +1,64 @@
 import { Secretariat } from '../../dist/secretariat';
 import test from 'ava';
-import fetch from 'node-fetch';
-import { Response } from 'node-fetch';
-import { REDIRECTOR_URL } from '../../dist/config';
-import {
-    StringifiedAssets,
-    LONG, SHORT,
-} from '../../dist/interfaces';
-
-const url = `${REDIRECTOR_URL}/secretariat`;
-const EPSILON = 1e-12;
+import axios, { AxiosResponse } from 'axios';
+import { SOCKFILE_ABSPATH } from '../../dist/config';
 
 test.serial('1', async t => {
     const secretariat = new Secretariat();
     await secretariat.start();
-    let res: Response;
-    let balances: [string, number][];
+    let res: AxiosResponse<any>;
+    let balances: number[];
 
-    res = await fetch(`${url}/assets?id=secretariat`, {
+    await axios.request({
         method: 'DELETE',
+        socketPath: SOCKFILE_ABSPATH,
+        url: '/secretariat/balances',
     });
-    t.assert(res.ok);
 
-    res = await fetch(`${url}/balances?id=secretariat`);
-    t.assert(res.ok);
-    balances = await res.json();
-    t.assert(!balances.length);
+    res = await axios.request({
+        method: 'GET',
+        socketPath: SOCKFILE_ABSPATH,
+        url: '/secretariat/balances',
+    });
+    balances = res.data;
+    t.assert(balances.length === 0);
 
-    const time = Date.now();
-    const assets: StringifiedAssets = {
-        time,
-        balance: '1.7',
-        position: {
-            [LONG]: '0', [SHORT]: '0',
-        },
-        reserve: '1.7',
-        closable: {
-            [LONG]: '0', [SHORT]: '0',
-        },
-    };
-    res = await fetch(`${url}/assets?id=secretariat`, {
+    await axios.request({
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(assets),
+        socketPath: SOCKFILE_ABSPATH,
+        url: '/secretariat/balances',
+        headers: {
+            'Content-Type': 'application/json',
+            'Server-Time': '1',
+        },
+        data: '100',
     });
-    t.assert(res.ok);
 
-    res = await fetch(`${url}/balances?id=secretariat`);
-    t.assert(res.ok);
-    balances = await res.json();
-    t.assert(Math.abs(Number.parseFloat(balances[0][0]) - 1.7) < EPSILON);
-    t.is(balances[0][1], time);
+    await axios.request({
+        method: 'POST',
+        socketPath: SOCKFILE_ABSPATH,
+        url: '/secretariat/balances',
+        headers: {
+            'Content-Type': 'application/json',
+            'Server-Time': '2',
+        },
+        data: '200',
+    });
 
-    await fetch(`${url}/assets?id=secretariat`, {
+    res = await axios.request({
+        method: 'GET',
+        socketPath: SOCKFILE_ABSPATH,
+        url: '/secretariat/balances?before=2',
+    });
+    balances = res.data;
+    t.assert(balances.length === 1);
+    t.assert(balances[0] === 100);
+
+    await axios.request({
         method: 'DELETE',
+        socketPath: SOCKFILE_ABSPATH,
+        url: '/secretariat/balances',
     });
-    t.assert(res.ok);
 
     await secretariat.stop();
 });

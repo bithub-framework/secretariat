@@ -4,7 +4,7 @@ import Startable from 'startable';
 import { Server } from 'http';
 import { once } from 'events';
 import { Database } from 'promisified-sqlite';
-import bodyParser from 'koa-bodyparser';
+import { koaRawBody } from './koa-raw-body';
 import { EventEmitter } from 'events';
 import { promisifyWebsocket } from 'promisify-websocket';
 import { KoaWsFilter } from 'koa-ws-filter';
@@ -13,8 +13,9 @@ import assert from 'assert';
 import compress from 'koa-compress';
 import fse from 'fs-extra';
 import { kebabCase as kebabCaseRegex } from 'id-case';
+import { execSync } from 'child_process';
 import { DATABASE_ABSPATH, SOCKFILE_ABSPATH, } from './config';
-const { removeSync } = fse;
+const { removeSync, chmodSync } = fse;
 class Secretariat extends Startable {
     constructor() {
         super();
@@ -26,29 +27,35 @@ class Secretariat extends Startable {
         this.db = new Database(DATABASE_ABSPATH);
         this.broadcast = new EventEmitter();
         this.koa.use(async (ctx, next) => {
-            await next().catch(() => {
+            await next().catch(err => {
+                console.error(err);
                 ctx.status = 400;
             });
         });
-        this.koa.use(bodyParser());
+        this.koa.use(koaRawBody);
         this.httpRouter.post('/:pid/:key', async (ctx, next) => {
             const pid = ctx.params.pid.toLowerCase();
             assert(kebabCaseRegex.test(pid));
             const key = ctx.params.key.toLocaleLowerCase();
             assert(kebabCaseRegex.test(key));
             assert(ctx.is('application/json'));
-            const json = ctx.request.rawBody;
+            const json = ctx.request.rawBody.toString();
             const time = Number.parseInt(ctx.get('Server-Time'));
             assert(Number.isInteger(time));
             this.broadcast.emit(`${pid}/${key}`, json);
             await this.db.sql(`INSERT INTO history (
                 pid, key, value, time
             ) VALUES (
-                '${pid}',
-                '${key}',
-                '${json}',
-                ${time}
-            );`);
+                $pid,
+                $key,
+                $json,
+                $time
+            );`, {
+                $pid: pid,
+                $key: key,
+                $json: json,
+                $time: time,
+            });
             ctx.status = 201;
             await next();
         });
@@ -84,16 +91,22 @@ class Secretariat extends Startable {
                 assert(Number.isInteger(latest));
             }
             const jsons = (await this.db.sql(`
-                SELECT value FROM json
-                WHERE pid = '${pid}' AND key = '${key}'
-                    ${before ? `AND time < ${before}` : ''}
-                ORDER BY time DESC
-                ${latest ? `LIMIT ${latest}` : ''}
-            ;`))
+                    SELECT value FROM history
+                    WHERE pid = $pid AND key = $key
+                        ${before !== null ? `AND time < $before` : ''}
+                    ORDER BY time DESC
+                    ${latest !== null ? `LIMIT $latest` : ''}
+                ;`, {
+                $pid: pid,
+                $key: key,
+                // 目前版本的 node-sqlite3 不允许有多余的参数，否则报错
+                $before: before !== null ? before : undefined,
+                $latest: latest !== null ? latest : undefined,
+            }))
                 .reverse()
                 .map(row => row.value);
             ctx.status = 200;
-            ctx.body = JSON.stringify(jsons);
+            ctx.body = jsons;
             await next();
         });
         this.wsRouter.all('/:pid/:key', async (ctx, next) => {
@@ -107,7 +120,7 @@ class Secretariat extends Startable {
                     await client.sendAsync(json);
                 }
                 catch (err) {
-                    this.stop(err).catch(() => { });
+                    client.close();
                 }
             };
             this.broadcast.on(`${pid}/${key}`, onJson);
@@ -132,6 +145,9 @@ class Secretariat extends Startable {
         removeSync(SOCKFILE_ABSPATH);
         this.server.listen(SOCKFILE_ABSPATH);
         await once(this.server, 'listening');
+        execSync(`chgrp bithub ${SOCKFILE_ABSPATH}`, { stdio: 'inherit' });
+        // posix doesn't define permission on uds
+        chmodSync(SOCKFILE_ABSPATH, 0o660);
     }
     async stopServer() {
         this.server.destroy();
