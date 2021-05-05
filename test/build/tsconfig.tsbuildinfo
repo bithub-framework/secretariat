@@ -472,8 +472,8 @@
         "affectsGlobalScope": false
       },
       "../../dist/config.d.ts": {
-        "version": "4593b464f9121c63c5b510106cb6ec1a730589c9cc1c4fbb2113998c42a7c339",
-        "signature": "4593b464f9121c63c5b510106cb6ec1a730589c9cc1c4fbb2113998c42a7c339",
+        "version": "df9e0070e19aabba2a7bf8ddcbc21628eb5b2f0dfebec83c98075e4d661f9143",
+        "signature": "df9e0070e19aabba2a7bf8ddcbc21628eb5b2f0dfebec83c98075e4d661f9143",
         "affectsGlobalScope": false
       },
       "../src/index.ts": {

@@ -13,7 +13,6 @@ import assert from 'assert';
 import compress from 'koa-compress';
 import fse from 'fs-extra';
 import { kebabCase as kebabCaseRegex } from 'id-case';
-import { execSync } from 'child_process';
 import { DATABASE_ABSPATH, SOCKFILE_ABSPATH, } from './config';
 const { removeSync, chmodSync } = fse;
 class Secretariat extends Startable {
@@ -145,9 +144,6 @@ class Secretariat extends Startable {
         removeSync(SOCKFILE_ABSPATH);
         this.server.listen(SOCKFILE_ABSPATH);
         await once(this.server, 'listening');
-        execSync(`chgrp bithub ${SOCKFILE_ABSPATH}`, { stdio: 'inherit' });
-        // posix doesn't define permission on uds
-        chmodSync(SOCKFILE_ABSPATH, 0o660);
     }
     async stopServer() {
         this.server.destroy();

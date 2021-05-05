@@ -163,9 +163,6 @@ class Secretariat extends Startable {
         removeSync(SOCKFILE_ABSPATH);
         this.server.listen(SOCKFILE_ABSPATH);
         await once(this.server, 'listening');
-        execSync(`chgrp bithub ${SOCKFILE_ABSPATH}`, { stdio: 'inherit' });
-        // posix doesn't define permission on uds
-        chmodSync(SOCKFILE_ABSPATH, 0o660);
     }
 
     private async stopServer() {

@@ -212,8 +212,8 @@
         "affectsGlobalScope": true
       },
       "../src/config.ts": {
-        "version": "32186820b0a561be1503a0793d81b8572f0806a005bcae6548efb75136d5ef30",
-        "signature": "4593b464f9121c63c5b510106cb6ec1a730589c9cc1c4fbb2113998c42a7c339",
+        "version": "81bb292ea8520a45f34739ff8cdfd4a67823fffd8fd0b4ed1622416ba3caacfd",
+        "signature": "df9e0070e19aabba2a7bf8ddcbc21628eb5b2f0dfebec83c98075e4d661f9143",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/node/globals.d.ts": {
@@ -597,7 +597,7 @@
         "affectsGlobalScope": false
       },
       "../src/secretariat.ts": {
-        "version": "ef54deb9a5ecfe2d1c1f24f75ca16547156d45ffb7c9c5e47df02499aaa6ed39",
+        "version": "0ba6cf5519c565cd8ef6db30059bc0432c919b1ceeb87e3663c436c2e175f70f",
         "signature": "b5d0c6d304fd2d33b222db75f076263948b3f39aa3cadf499ec37432d260b4ae",
         "affectsGlobalScope": false
       },
@@ -988,6 +988,10 @@
       "../node_modules/startable/dist/startable.d.ts": [
         "../node_modules/@types/node/events.d.ts",
         "../node_modules/@types/node/index.d.ts"
+      ],
+      "../src/config.ts": [
+        "../node_modules/@types/node/assert.d.ts",
+        "../node_modules/@types/node/path.d.ts"
       ],
       "../src/koa-raw-body.ts": [
         "../node_modules/@types/koa/index.d.ts",
